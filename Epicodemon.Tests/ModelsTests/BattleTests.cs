@@ -46,19 +46,19 @@ namespace Epicodemon.Tests
       Assert.AreEqual(newBattle, result);
     }
 
-    [TestMethod]
-    public void Edit_Test()
-    {
-      //Arrange
-      Battle newBattle = new Battle("Electrode", 43, 24, 31, 61, 32, 23, 20, 20, 24, 30);
-      newBattle.Save();
-      Battle expectedBattle = new Battle("Electrode", 43, 24, 32, 61, 32, 23, 20, 20, 24, 30, newBattle.GetBattleId());
-      //Act
-      newBattle.Edit("Electrode", 43, 24, 32, 61, 32, 23, 20, 20, 24, 30);
-
-      //Assert
-      Assert.AreEqual(expectedBattle, newBattle);
-    }
+    // [TestMethod]
+    // public void Edit_Test()
+    // {
+    //   //Arrange
+    //   Battle newBattle = new Battle("Electrode", 43, 24, 31, 61, 32, 23, 20, 20, 24, 30);
+    //   newBattle.Save();
+    //   Battle expectedBattle = new Battle("Electrode", 43, 24, 32, 61, 32, 23, 20, 20, 24, 30, newBattle.GetBattleId());
+    //   //Act
+    //   newBattle.Edit("Electrode", 43, 24, 32, 61, 32, 23, 20, 20, 24, 30);
+    //
+    //   //Assert
+    //   Assert.AreEqual(expectedBattle, newBattle);
+    // }
     [TestMethod]
     public void Delete_Test()
     {
@@ -74,6 +74,44 @@ namespace Epicodemon.Tests
       List<Battle> expectedResult = new List<Battle>{newBattle1};
       //Assert
       CollectionAssert.AreEqual(expectedResult, result);
+    }
+    [TestMethod]
+    public void GetMons_Test()
+    {
+      //Arrange
+      Battle newBattle = new Battle("Togepi", 1, 2, 4, 2, 3, 4, 20, 20, 23, 5);
+      newBattle.Save();
+      Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
+      newMon.Save();
+      Mon newMon1 = new Mon("Chansey", 43, 24, 32, 61, 32, 23, 20);
+      newMon1.Save();
+
+      //Act
+      newBattle.AddMon(newMon);
+      newBattle.AddMon(newMon1);
+
+      List<Mon> expectedResult = new List<Mon>{newMon, newMon1};
+      List<Mon> result = newBattle.GetMons();
+
+      //Assert
+      CollectionAssert.AreEqual(expectedResult, result);
+    }
+    [TestMethod]
+    public void BaseDamage()
+    {
+      //Assert
+      Move newMove = new Move("thunderbolt", 95, "special", "zappy boi", "par 10", 15);
+      Mon newMon = new Mon("Raichu-Alola", 50, 60, 85, 50, 95, 85, 110);
+      newMon.Save();
+      Mon newMon = new Mon("Golduck", 50, 80, 82, 78, 95, 80, 85);
+      newMon.Save();
+
+
+      //Act
+
+      //Assert
+
+
     }
   }
 }

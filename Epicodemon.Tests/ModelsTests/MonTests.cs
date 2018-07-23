@@ -30,6 +30,8 @@ namespace Epicodemon.Tests
       List<Mon> result = Mon.GetAllMons();
 
       //Assert
+      Console.WriteLine(expectedResult.Count);
+      Console.WriteLine(result.Count);
       CollectionAssert.AreEqual(expectedResult, result);
     }
     [TestMethod]
