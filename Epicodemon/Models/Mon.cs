@@ -250,5 +250,32 @@ namespace Epicodemon.Models
         conn.Close();
       }
     }
+    public int GetTrueHP()
+    {
+      Random iv = new Random();
+      // return (((2 * _hitpoints + iv.Next(32)) * _level) / 100) + _level + 10;
+      return (((2 * _hitpoints + 31) * _level) / 100) + _level + 10;
+
+    }
+    public int GetTrueStat(int stat)
+    {
+      Random iv = new Random();
+      // return (((2 * stat + iv.Next(32)) * _level) / 100) + 5;
+      return (((2 * stat + 31) * _level) / 100) + 5;
+
+    }
+    public Battle GetAllTrueStats(int id)
+    {
+      Mon newMon = Mon.Find(id);
+      string monName = _monName;
+      int trueHP = newMon.GetTrueHP();
+      int trueAttack = newMon.GetTrueStat(_attack);
+      int trueDefense = newMon.GetTrueStat(_defense);
+      int trueSpecialattack = newMon.GetTrueStat(_specialattack);
+      int trueSpecialdefense = newMon.GetTrueStat(_specialdefense);
+      int trueSpeed = newMon.GetTrueStat(_speed);
+
+      return new Battle(monName, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
+    }
   }
 }

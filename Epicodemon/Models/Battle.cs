@@ -19,7 +19,7 @@ namespace Epicodemon.Models
     private int _move3pp;
     private int _move4pp;
 
-    public Battle(string BattleName, int Hitpoints, int Attack, int Defense, int Specialattack, int Specialdefense, int Speed, int Move1pp, int Move2pp, int Move3pp, int Move4pp, int BattleId = 0)
+    public Battle(string BattleName, int Hitpoints, int Attack, int Defense, int Specialattack, int Specialdefense, int Speed, int Move1pp = 0, int Move2pp = 0, int Move3pp = 0, int Move4pp = 0, int BattleId = 0)
     {
       _battleId = BattleId;
       _battleName = BattleName;

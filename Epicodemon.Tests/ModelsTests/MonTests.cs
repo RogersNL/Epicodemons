@@ -85,5 +85,45 @@ namespace Epicodemon.Tests
       //Assert
       CollectionAssert.AreEqual(expectedResult, result);
     }
+    [TestMethod]
+    public void GetTrueHP_Test()
+    {
+      //Arrange
+      Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
+      newMon.Save();
+
+      //Act
+      int result = newMon.GetTrueHP();
+
+      //Assert
+      Assert.AreEqual(105, result);
+    }
+    [TestMethod]
+    public void GetTrueStat_Test()
+    {
+      //Arrange
+      Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
+      newMon.Save();
+
+      //Act
+      int result = newMon.GetTrueStat(newMon.GetAttack());
+
+      //Assert
+      Assert.AreEqual(76, result);
+    }
+    [TestMethod]
+    public void GetAllTrueStats_Test()
+    {
+      //Arrange
+      Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
+      newMon.Save();
+      Battle expectedResult = new Battle("Rattata", 105, 76, 55, 45, 55, 92);
+
+      //Act
+      Battle result = newMon.GetAllTrueStats(newMon.GetMonId());
+
+      //Assert
+      Assert.AreEqual(expectedResult, result);
+    }
   }
 }
