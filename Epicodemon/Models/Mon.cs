@@ -25,7 +25,7 @@ namespace Epicodemon.Models
       _attack = Attack;
       _defense = Defense;
       _specialattack = Specialattack;
-      _specialdefense = SpecialDefense;
+      _specialdefense = Specialdefense;
       _speed = Speed;
     }
     public int GetMonId()
@@ -78,7 +78,7 @@ namespace Epicodemon.Models
         bool levelEquality = this.GetLevel().Equals(newMon.GetLevel());
         bool hitpointsEquality = this.GetHitpoints().Equals(newMon.GetHitpoints());
         bool attackEquality = this.GetAttack().Equals(newMon.GetAttack());
-        bool defenseEquality = this.GetDefense().Equals(newMon.GetMonName());
+        bool defenseEquality = this.GetDefense().Equals(newMon.GetDefense());
         bool spattackEquality = this.GetSpecialattack().Equals(newMon.GetSpecialattack());
         bool spdefenseEquality = this.GetSpecialdefense().Equals(newMon.GetSpecialdefense());
         bool speedEquality = this.GetSpeed().Equals(newMon.GetSpeed());
@@ -127,14 +127,15 @@ namespace Epicodemon.Models
       {
         int MonId = rdr.GetInt32(0);
         string MonName = rdr.GetString(1);
-        int Hitpoints = rdr.GetInt32(2);
-        int Attack = rdr.GetInt32(3);
-        int Defense = rdr.GetInt32(4);
-        int Specialattack = rdr.GetInt32(5);
-        int Specialdefense = rdr.GetInt32(6);
-        int Speed = rdr.GetInt32(7);
+        int Level = rdr.GetInt32(2);
+        int Hitpoints = rdr.GetInt32(3);
+        int Attack = rdr.GetInt32(4);
+        int Defense = rdr.GetInt32(5);
+        int Specialattack = rdr.GetInt32(6);
+        int Specialdefense = rdr.GetInt32(7);
+        int Speed = rdr.GetInt32(8);
 
-        Mon newMon = new Mon(MonName, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, MonId);
+        Mon newMon = new Mon(MonName, Level, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, MonId);
         allMons.Add(newMon);
       }
       conn.Close();
@@ -173,6 +174,7 @@ namespace Epicodemon.Models
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       int MonId = 0;
       string MonName = "";
+      int Level = 0;
       int Hitpoints = 0;
       int Attack = 0;
       int Defense = 0;
@@ -183,14 +185,15 @@ namespace Epicodemon.Models
       {
         MonId = rdr.GetInt32(0);
         MonName = rdr.GetString(1);
-        Hitpoints = rdr.GetInt32(2);
-        Attack = rdr.GetInt32(3);
-        Defense = rdr.GetInt32(4);
-        Specialattack = rdr.GetInt32(5);
-        Specialdefense = rdr.GetInt32(6);
-        Speed = rdr.GetInt32(7);
+        Level = rdr.GetInt32(2);
+        Hitpoints = rdr.GetInt32(3);
+        Attack = rdr.GetInt32(4);
+        Defense = rdr.GetInt32(5);
+        Specialattack = rdr.GetInt32(6);
+        Specialdefense = rdr.GetInt32(7);
+        Speed = rdr.GetInt32(8);
       }
-      Mon newMon = new Mon(MonName, MonId);
+      Mon newMon = new Mon(MonName, Level, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, MonId);
       conn.Close();
       if (conn != null)
       {
@@ -199,15 +202,16 @@ namespace Epicodemon.Models
       // return new Mon("", "", 0);
       return newMon;
     }
-    public void Edit(string newMonName, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed)
+    public void Edit(string newMonName, int newLevel, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE mons SET name = @newMonName, hitpoints = @newHitpoints, attack = @newAttack, defense = @newDefense, specialattack = @newSpecialattack, specialdefense = @newSpecialdefense, speed = @newSpeed WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE mons SET name = @newMonName, hitpoints = @newHitpoints, level = @newLevel, attack = @newAttack, defense = @newDefense, specialattack = @newSpecialattack, specialdefense = @newSpecialdefense, speed = @newSpeed WHERE id = @searchId;";
 
       cmd.Parameters.Add(new MySqlParameter("@searchId", _monId));
       cmd.Parameters.Add(new MySqlParameter("@newMonName", newMonName));
+      cmd.Parameters.Add(new MySqlParameter("@newLevel", newLevel));
       cmd.Parameters.Add(new MySqlParameter("@newHitpoints", newHitpoints));
       cmd.Parameters.Add(new MySqlParameter("@newAttack", newAttack));
       cmd.Parameters.Add(new MySqlParameter("@newDefense", newDefense));
@@ -217,6 +221,7 @@ namespace Epicodemon.Models
 
       cmd.ExecuteNonQuery();
       _monName = newMonName;
+      _level = newLevel;
       _hitpoints = newHitpoints;
       _attack = newAttack;
       _defense = newDefense;
@@ -235,7 +240,7 @@ namespace Epicodemon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM mons WHERE id = @MonId; DELETE FROM mons_books WHERE mon_id = @MonId;";
+      cmd.CommandText = @"DELETE FROM mons WHERE id = @MonId;";
 
       cmd.Parameters.Add(new MySqlParameter("@MonId", this.GetMonId()));
 

@@ -48,7 +48,7 @@ namespace Epicodemon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO monTypes (name) VALUES (@monTypeName);";
+      cmd.CommandText = @"INSERT INTO types (name) VALUES (@monTypeName);";
 
       cmd.Parameters.Add(new MySqlParameter("@monTypeName", _monTypeName));
 
@@ -66,7 +66,7 @@ namespace Epicodemon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM monTypes;";
+      cmd.CommandText = @"SELECT * FROM types;";
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       while(rdr.Read())
       {
@@ -89,7 +89,7 @@ namespace Epicodemon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM monTypes;";
+      cmd.CommandText = @"DELETE FROM types;";
 
       cmd.ExecuteNonQuery();
 
@@ -104,7 +104,7 @@ namespace Epicodemon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM monTypes WHERE id = (@searchId);";
+      cmd.CommandText = @"SELECT * FROM types WHERE id = (@searchId);";
 
       cmd.Parameters.Add(new MySqlParameter("@searchId", id));
 
@@ -132,7 +132,7 @@ namespace Epicodemon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE monTypes SET name = @newMonTypeName WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE types SET name = @newMonTypeName WHERE id = @searchId;";
 
       cmd.Parameters.Add(new MySqlParameter("@searchId", _monTypeId));
       cmd.Parameters.Add(new MySqlParameter("@newMonTypeName", newMonTypeName));
@@ -151,7 +151,7 @@ namespace Epicodemon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM monTypes WHERE id = @MonTypeId; DELETE FROM monTypes_books WHERE monType_id = @MonTypeId;";
+      cmd.CommandText = @"DELETE FROM types WHERE id = @MonTypeId;";
 
       cmd.Parameters.Add(new MySqlParameter("@MonTypeId", this.GetMonTypeId()));
 

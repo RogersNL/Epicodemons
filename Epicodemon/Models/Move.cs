@@ -18,7 +18,7 @@ namespace Epicodemon.Models
     {
       _moveId = MoveId;
       _moveName = MoveName;
-      _basepower = Basepower;
+      _basePower = BasePower;
       _attackStyle = AttackStyle;
       _description = Description;
       _secondaryEffect = SecondaryEffect;
@@ -86,11 +86,11 @@ namespace Epicodemon.Models
       cmd.CommandText = @"INSERT INTO moves (name, basepower, attackstyle, description, secondaryeffect, powerpoints) VALUES (@moveName, @basePower, @attackStyle, @description, @secondaryEffect, @powerPoints);";
 
       cmd.Parameters.Add(new MySqlParameter("@moveName", _moveName));
-      cmd.Parameters.Add(new MySqlParameter("@basePower", _basepower));
-      cmd.Parameters.Add(new MySqlParameter("@attackStyle", _attackstyle));
+      cmd.Parameters.Add(new MySqlParameter("@basePower", _basePower));
+      cmd.Parameters.Add(new MySqlParameter("@attackStyle", _attackStyle));
       cmd.Parameters.Add(new MySqlParameter("@description", _description));
-      cmd.Parameters.Add(new MySqlParameter("@secondaryEffect", _secondaryeffect));
-      cmd.Parameters.Add(new MySqlParameter("@powerPoints", _powerpoints));
+      cmd.Parameters.Add(new MySqlParameter("@secondaryEffect", _secondaryEffect));
+      cmd.Parameters.Add(new MySqlParameter("@powerPoints", _powerPoints));
 
       cmd.ExecuteNonQuery();
       _moveId = (int) cmd.LastInsertedId;
@@ -112,12 +112,12 @@ namespace Epicodemon.Models
       {
         int MoveId = rdr.GetInt32(0);
         string MoveName = rdr.GetString(1);
-        int BasePower = rdr.GetIn32(2);
+        int BasePower = rdr.GetInt32(2);
         string AttackStyle = rdr.GetString(3);
         string Description = rdr.GetString(4);
         string SecondaryEffect = rdr.GetString(5);
         int PowerPoints = rdr.GetInt32(6);
-        Move newMove = new Move(MoveName, MoveId);
+        Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, MoveId);
         allMoves.Add(newMove);
       }
       conn.Close();
@@ -166,13 +166,13 @@ namespace Epicodemon.Models
       {
         MoveId = rdr.GetInt32(0);
         MoveName = rdr.GetString(1);
-        BasePower = rdr.GetIn32(2);
+        BasePower = rdr.GetInt32(2);
         AttackStyle = rdr.GetString(3);
         Description = rdr.GetString(4);
         SecondaryEffect = rdr.GetString(5);
         PowerPoints = rdr.GetInt32(6);
       }
-      Move newMove = new Move(MoveName, MoveId);
+      Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, MoveId);
       conn.Close();
       if (conn != null)
       {
@@ -216,7 +216,7 @@ namespace Epicodemon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM moves WHERE id = @MoveId; DELETE FROM moves_books WHERE move_id = @MoveId;";
+      cmd.CommandText = @"DELETE FROM moves WHERE id = @MoveId;";
 
       cmd.Parameters.Add(new MySqlParameter("@MoveId", this.GetMoveId()));
 

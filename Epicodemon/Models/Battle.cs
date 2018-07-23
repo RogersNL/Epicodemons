@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System;
 
-namespace Epicodebattle.Models
+namespace Epicodemon.Models
 {
   public class Battle
   {
@@ -95,7 +95,7 @@ namespace Epicodebattle.Models
         bool nameEquality = this.GetBattleName().Equals(newBattle.GetBattleName());
         bool hitpointsEquality = this.GetHitpoints().Equals(newBattle.GetHitpoints());
         bool attackEquality = this.GetAttack().Equals(newBattle.GetAttack());
-        bool defenseEquality = this.GetDefense().Equals(newBattle.GetBattleName());
+        bool defenseEquality = this.GetDefense().Equals(newBattle.GetDefense());
         bool spattackEquality = this.GetSpecialattack().Equals(newBattle.GetSpecialattack());
         bool spdefenseEquality = this.GetSpecialdefense().Equals(newBattle.GetSpecialdefense());
         bool speedEquality = this.GetSpeed().Equals(newBattle.GetSpeed());
@@ -158,8 +158,12 @@ namespace Epicodebattle.Models
         int Specialattack = rdr.GetInt32(5);
         int Specialdefense = rdr.GetInt32(6);
         int Speed = rdr.GetInt32(7);
+        int Move1pp = rdr.GetInt32(8);
+        int Move2pp = rdr.GetInt32(9);
+        int Move3pp = rdr.GetInt32(10);
+        int Move4pp = rdr.GetInt32(11);
 
-        Battle newBattle = new Battle(BattleName, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, BattleId);
+        Battle newBattle = new Battle(BattleName, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, BattleId);
         allBattles.Add(newBattle);
       }
       conn.Close();
@@ -233,7 +237,7 @@ namespace Epicodebattle.Models
       // return new Battle("", "", 0);
       return newBattle;
     }
-    public void Edit(string newBattleName, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed, int newMove1pp, newMove2pp, newMove3pp, newMove4pp)
+    public void Edit(string newBattleName, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed, int newMove1pp, int newMove2pp, int newMove3pp, int newMove4pp)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
@@ -261,10 +265,10 @@ namespace Epicodebattle.Models
       _specialattack = newSpecialattack;
       _specialdefense = newSpecialdefense;
       _speed = newSpeed;
-      _move1pp = Move1pp;
-      _move2pp = Move2pp;
-      _move3pp = Move3pp;
-      _move4pp = Move4pp;
+      _move1pp = newMove1pp;
+      _move2pp = newMove2pp;
+      _move3pp = newMove3pp;
+      _move4pp = newMove4pp;
 
       conn.Close();
       if (conn != null)
@@ -277,7 +281,7 @@ namespace Epicodebattle.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM battles WHERE id = @BattleId; DELETE FROM battles_books WHERE battle_id = @BattleId;";
+      cmd.CommandText = @"DELETE FROM battle WHERE id = @BattleId;";
 
       cmd.Parameters.Add(new MySqlParameter("@BattleId", this.GetBattleId()));
 

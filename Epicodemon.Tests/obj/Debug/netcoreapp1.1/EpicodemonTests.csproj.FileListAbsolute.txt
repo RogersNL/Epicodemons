@@ -1,0 +1,13 @@
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/EpicodemonTests.deps.json
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/EpicodemonTests.runtimeconfig.json
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/EpicodemonTests.runtimeconfig.dev.json
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/EpicodemonTests.dll
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/EpicodemonTests.pdb
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/Epicodemon.dll
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/bin/Debug/netcoreapp1.1/Epicodemon.pdb
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/obj/Debug/netcoreapp1.1/EpicodemonTests.AssemblyInfo.cs
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/obj/Debug/netcoreapp1.1/EpicodemonTests.dll
+/Users/Guest/Desktop/Epicodemons/Epicodemon.Tests/obj/Debug/netcoreapp1.1/EpicodemonTests.pdb
