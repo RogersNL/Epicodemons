@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 23, 2018 at 08:55 PM
+-- Generation Time: Jul 24, 2018 at 01:34 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -40,7 +40,10 @@ CREATE TABLE `battle` (
   `move1pp` int(11) NOT NULL,
   `move2pp` int(11) NOT NULL,
   `move3pp` int(11) NOT NULL,
-  `move4pp` int(11) NOT NULL
+  `move4pp` int(11) NOT NULL,
+  `isplayer` tinyint(1) NOT NULL,
+  `iscomputer` tinyint(1) NOT NULL,
+  `isactive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -59,6 +62,18 @@ CREATE TABLE `mons` (
   `specialattack` int(11) NOT NULL,
   `specialdefense` int(11) NOT NULL,
   `speed` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mons_battle`
+--
+
+CREATE TABLE `mons_battle` (
+  `id` int(11) NOT NULL,
+  `mons_id` int(11) NOT NULL,
+  `battle_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -147,6 +162,12 @@ ALTER TABLE `mons`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mons_battle`
+--
+ALTER TABLE `mons_battle`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `moves`
 --
 ALTER TABLE `moves`
@@ -171,6 +192,11 @@ ALTER TABLE `battle`
 -- AUTO_INCREMENT for table `mons`
 --
 ALTER TABLE `mons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `mons_battle`
+--
+ALTER TABLE `mons_battle`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `moves`
