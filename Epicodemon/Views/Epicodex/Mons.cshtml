@@ -11,6 +11,14 @@
 <body>
   <div class="container">
     <h1>Epicodex</h1>
+    @foreach(var mon in Model)
+    {
+      <div class="well">
+      <h4>@mon.GetMonName()</h4>
+      <p><img class="Epicodex-pic" src="~/img/@mon.GetMonName()pic.jpg"></p>
+      <p><a href="/Epicodex/Mons/@mon.GetMonId()/View">More Info</a></p>
+      </div>
+    }
 
   </div>
 </body>

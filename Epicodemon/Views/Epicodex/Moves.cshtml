@@ -11,6 +11,17 @@
 <body>
   <div class="container">
     <h1>Epicodex</h1>
-
+    @foreach(var move in Model)
+    {
+      <div class="well">
+        <h4>@move.GetName()</h4>
+        <p>Description: @move.GetDescription()</p>
+        <p>Attack Style: @move.GetAttackStyle()</p>
+        <p>Base Power: @move.GetBasePower()</p>
+        <p>Accuracy: move.GetAccuracy()</p>
+        <p>Power Points: move.GetPowerPoints()</p>
+        <p>Secondary Effect: @move.GetSecondaryEffect()</p>
+      </div>
+    }
 </body>
 </html>

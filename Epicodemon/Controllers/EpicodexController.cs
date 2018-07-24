@@ -16,5 +16,10 @@ namespace Epicodemon.Controllers
     {
       return View(Mon.GetAllMons());
     }
+    [HttpGet("/Epicodex/Moves")]
+    public ActionResult Moves()
+    {
+      return View(Move.GetAllMoves());
+    }
   }
 }

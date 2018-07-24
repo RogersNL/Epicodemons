@@ -59,7 +59,7 @@ namespace Epicodemon.Controllers
         if(newHP > 0)
         {
           computer.SetNewHP(newHP);
-          
+
         }
         else
         {
@@ -75,7 +75,7 @@ namespace Epicodemon.Controllers
       {
 
       }
-      // return RedirectToAction("Combat");
+       return RedirectToAction("Combat");
     }
   }
 }
