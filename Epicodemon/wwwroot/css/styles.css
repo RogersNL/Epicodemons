@@ -1,46 +1,59 @@
-.enemyStatus{
+.enemyStatus
+{
   float: left;
   position: absolute;
   width: 500px;
   margin: 15px;
 }
 
-.enemySprite{
+.enemySprite
+{
   float: right;
 }
 
-.fighterSprite{
+.fighterSprite
+{
   float: left;
   margin-top: 600px;
 }
 
-.fighterStatus{
+.fighterStatus
+{
   margin-top: 220px;
   float: right;
   width: 500px;
 }
 
-.attack{
+.attack
+{
   width: 300px;
   height: 100px;
   border-width: thin;
 }
 
-.attackBar{
+.attackBar
+{
   display: none;
   margin-top: 20px;
   float: right;
   width: 650px;
 }
 
-.menu{
+.menu
+{
   margin-top: 20px;
   float: right;
   width: 650px;
 }
 
-.menuButton{
+.menuButton
+{
   width: 300px;
   height: 150px;
   border-width: thin;
+}
+
+.Epicodex-pic
+{
+height: 100px;
 }
