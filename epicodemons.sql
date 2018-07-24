@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 24, 2018 at 01:34 AM
--- Server version: 5.6.35
--- PHP Version: 7.0.15
+-- Generation Time: Jul 24, 2018 at 06:28 AM
+-- Server version: 5.6.34-log
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -30,7 +32,9 @@ USE `epicodemons`;
 
 CREATE TABLE `battle` (
   `id` int(11) NOT NULL,
+  `mon_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `level` int(11) NOT NULL,
   `hitpoints` int(11) NOT NULL,
   `attack` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
@@ -207,7 +211,8 @@ ALTER TABLE `moves`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
