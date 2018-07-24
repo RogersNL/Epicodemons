@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
 
-  <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="~/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="../css/styles.css" rel="stylesheet" type="text/css">
 
-  <script src="js/jquery-3.3.1.js"></script>
-  <script src="js/scripts.js"></script>
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/scripts.js"></script>
 
   <title>Epicodemon</title>
 
@@ -51,10 +51,12 @@
 
     <div class="attackBar">
       <div class="well">
-        <button type="button" class="attack">Scratch</button>
-        <button type="button" class="attack">Growl</button>
-        <button type="button" class="attack">Bubblebeam</button>
-        <button type="button" class="attack">Limit-Break</button>
+        @foreach(var move in Model["playerMoves"])
+        {
+          <form class="attack" action="/Battle/Combat/@move.GetMoveId()" method="post">
+            <button type="submit" class="attack">@move.GetMoveName()</button>
+          </form>
+        }
       </div>
     </div>
 

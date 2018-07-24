@@ -38,16 +38,44 @@ namespace Epicodemon.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
+      List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
 
       model.Add("player", player);
       model.Add("computer", computer);
-
+      model.Add("playerMoves", playerMoves);
       return View(model);
     }
-    [HttpPost("/Battle/TurnSequence")]
-    public ActionResult TurnSequence()
+    [HttpPost("/Battle/Combat/{id}")]
+    public ActionResult TurnSequence(int id)
     {
-      return RedirectToAction("Combat");
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      Move playerMove = Move.Find(id);
+      List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
+      //Speed Check
+      if(player.GetSpeed() > computer.GetSpeed())
+      {
+        int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
+        if(newHP > 0)
+        {
+          computer.SetNewHP(newHP);
+          
+        }
+        else
+        {
+          computer.SetNewHP(0);
+        }
+
+      }
+      else if (player.GetSpeed() < computer.GetSpeed())
+      {
+
+      }
+      else if (player.GetSpeed() == computer.GetSpeed())
+      {
+
+      }
+      // return RedirectToAction("Combat");
     }
   }
 }

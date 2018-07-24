@@ -267,6 +267,60 @@ namespace Epicodemon.Models
       return rounded;
 
     }
+    public void AddMove(Move newMove)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO moves_mons (moves_id, mons_id) VALUES (@MovesId, @MonsId);";
+
+      cmd.Parameters.Add(new MySqlParameter("@MonsId", _monId));
+      cmd.Parameters.Add(new MySqlParameter("@MovesId", newMove.GetMoveId()));
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+    public List<Move> GetMoves()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT moves.* FROM mons
+      JOIN moves_mons ON (mons.id = moves_mons.mons_id)
+      JOIN moves ON (moves_mons.moves_id = moves.id)
+      WHERE mons.id = @MonId;";
+
+      cmd.Parameters.Add(new MySqlParameter("@MonId", _monId));
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      List<Move> moves = new List<Move>{};
+
+      while(rdr.Read())
+      {
+        int moveId = rdr.GetInt32(0);
+        string moveName = rdr.GetString(1);
+        int basePower = rdr.GetInt32(2);
+        string attackStyle = rdr.GetString(3);
+        string description = rdr.GetString(4);
+        string secondaryEffect = rdr.GetString(5);
+        int powerPoints = rdr.GetInt32(6);
+        int accuracy = rdr.GetInt32(7);
+        Move newMove = new Move(moveName, basePower, attackStyle, description, secondaryEffect, powerPoints, accuracy, moveId);
+        moves.Add(newMove);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return moves;
+      // return new List<Move>{};
+    }
+
     public Battle GetAllTrueStats()
     {
       int mon_Id = _monId;

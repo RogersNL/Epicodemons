@@ -607,6 +607,25 @@ namespace Epicodemon.Models
         conn.Dispose();
       }
     }
+    public void SetNewHP(int newHp)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE battle SET hitpoints = @newHp WHERE id = @searchId;";
+
+      cmd.Parameters.Add(new MySqlParameter("@searchId", _battleId));
+      cmd.Parameters.Add(new MySqlParameter("@newHp", newHp));
+
+      cmd.ExecuteNonQuery();
+      _hitpoints = newHp;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
     public static void ComputerChoice(int MonId)
     {
       if(MonId == 1)
