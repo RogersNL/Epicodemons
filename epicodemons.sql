@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 24, 2018 at 06:28 AM
--- Server version: 5.6.34-log
--- PHP Version: 7.2.1
+-- Generation Time: Jul 24, 2018 at 08:53 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -35,6 +33,7 @@ CREATE TABLE `battle` (
   `mon_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `level` int(11) NOT NULL,
+  `totalhitpoints` int(11) NOT NULL,
   `hitpoints` int(11) NOT NULL,
   `attack` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
@@ -49,6 +48,14 @@ CREATE TABLE `battle` (
   `iscomputer` tinyint(1) NOT NULL,
   `isactive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `battle`
+--
+
+INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
+(9, 2, 'Hambirder', 5, 21, 15, 12, 10, 13, 11, 11, 0, 0, 0, 0, 1, 0, 1),
+(10, 3, 'Seasharp', 5, 21, 21, 13, 11, 11, 11, 10, 0, 0, 0, 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -67,6 +74,15 @@ CREATE TABLE `mons` (
   `specialdefense` int(11) NOT NULL,
   `speed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `mons`
+--
+
+INSERT INTO `mons` (`id`, `name`, `level`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`) VALUES
+(1, 'Quombat', 5, 40, 45, 35, 65, 55, 70),
+(2, 'Hambirder', 5, 45, 60, 40, 70, 50, 45),
+(3, 'Seasharp', 5, 50, 70, 50, 50, 50, 40);
 
 -- --------------------------------------------------------
 
@@ -191,12 +207,12 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `battle`
 --
 ALTER TABLE `battle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `mons`
 --
 ALTER TABLE `mons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `mons_battle`
 --
@@ -211,8 +227,7 @@ ALTER TABLE `moves`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;COMMIT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

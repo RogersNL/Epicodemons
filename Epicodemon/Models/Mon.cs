@@ -267,20 +267,20 @@ namespace Epicodemon.Models
       return rounded;
 
     }
-    public Battle GetAllTrueStats(int id)
+    public Battle GetAllTrueStats()
     {
-      Mon newMon = Mon.Find(id);
       int mon_Id = _monId;
       string monName = _monName;
       int level = _level;
-      int trueHP = newMon.GetTrueHP();
-      int trueAttack = newMon.GetTrueStat(_attack);
-      int trueDefense = newMon.GetTrueStat(_defense);
-      int trueSpecialattack = newMon.GetTrueStat(_specialattack);
-      int trueSpecialdefense = newMon.GetTrueStat(_specialdefense);
-      int trueSpeed = newMon.GetTrueStat(_speed);
+      int trueTotalHP = this.GetTrueHP();
+      int trueHP = this.GetTrueHP();
+      int trueAttack = this.GetTrueStat(_attack);
+      int trueDefense = this.GetTrueStat(_defense);
+      int trueSpecialattack = this.GetTrueStat(_specialattack);
+      int trueSpecialdefense = this.GetTrueStat(_specialdefense);
+      int trueSpeed = this.GetTrueStat(_speed);
 
-      return new Battle(mon_Id, monName, level, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
+      return new Battle(mon_Id, monName, level, trueTotalHP, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
     }
   }
 }

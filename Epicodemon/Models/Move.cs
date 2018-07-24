@@ -13,8 +13,10 @@ namespace Epicodemon.Models
     private string _description;
     private string _secondaryEffect;
     private int _powerPoints;
+    private int _accuracy;
 
-    public Move(string MoveName, int BasePower, string AttackStyle, string Description, string SecondaryEffect, int PowerPoints, int MoveId = 0)
+
+    public Move(string MoveName, int BasePower, string AttackStyle, string Description, string SecondaryEffect, int PowerPoints, int Accuracy, int MoveId = 0)
     {
       _moveId = MoveId;
       _moveName = MoveName;
@@ -23,6 +25,7 @@ namespace Epicodemon.Models
       _description = Description;
       _secondaryEffect = SecondaryEffect;
       _powerPoints = PowerPoints;
+      _accuracy = Accuracy;
     }
     public int GetMoveId()
     {
@@ -52,6 +55,10 @@ namespace Epicodemon.Models
     {
       return _powerPoints;
     }
+    public int GetAccuracy()
+    {
+      return _accuracy;
+    }
 
     public override bool Equals(System.Object otherMove)
     {
@@ -69,7 +76,8 @@ namespace Epicodemon.Models
         bool descriptionEquality = this.GetDescription().Equals(newMove.GetDescription());
         bool secondaryEquality = this.GetSecondaryEffect().Equals(newMove.GetSecondaryEffect());
         bool powerPointsEquality = this.GetPowerPoints().Equals(newMove.GetPowerPoints());
-        return (idEquality && nameEquality && basePowerEquality && attackStyleEquality && descriptionEquality && secondaryEquality && powerPointsEquality);
+        bool accuracyEquality = this.GetAccuracy().Equals(newMove.GetAccuracy());
+        return (idEquality && nameEquality && basePowerEquality && attackStyleEquality && descriptionEquality && secondaryEquality && powerPointsEquality && accuracyEquality );
       }
     }
     public override int GetHashCode()
@@ -83,7 +91,7 @@ namespace Epicodemon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO moves (name, basepower, attackstyle, description, secondaryeffect, powerpoints) VALUES (@moveName, @basePower, @attackStyle, @description, @secondaryEffect, @powerPoints);";
+      cmd.CommandText = @"INSERT INTO moves (name, basepower, attackstyle, description, secondaryeffect, powerpoints, accuracy) VALUES (@moveName, @basePower, @attackStyle, @description, @secondaryEffect, @powerPoints, @accuracy);";
 
       cmd.Parameters.Add(new MySqlParameter("@moveName", _moveName));
       cmd.Parameters.Add(new MySqlParameter("@basePower", _basePower));
@@ -91,6 +99,7 @@ namespace Epicodemon.Models
       cmd.Parameters.Add(new MySqlParameter("@description", _description));
       cmd.Parameters.Add(new MySqlParameter("@secondaryEffect", _secondaryEffect));
       cmd.Parameters.Add(new MySqlParameter("@powerPoints", _powerPoints));
+      cmd.Parameters.Add(new MySqlParameter("@accuracy", _accuracy));
 
       cmd.ExecuteNonQuery();
       _moveId = (int) cmd.LastInsertedId;
@@ -117,7 +126,8 @@ namespace Epicodemon.Models
         string Description = rdr.GetString(4);
         string SecondaryEffect = rdr.GetString(5);
         int PowerPoints = rdr.GetInt32(6);
-        Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, MoveId);
+        int Accuracy = rdr.GetInt32(6);
+        Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, Accuracy, MoveId);
         allMoves.Add(newMove);
       }
       conn.Close();
@@ -161,6 +171,7 @@ namespace Epicodemon.Models
       string Description = "";
       string SecondaryEffect = "";
       int PowerPoints = 0;
+      int Accuracy = 0;
 
       while(rdr.Read())
       {
@@ -171,8 +182,9 @@ namespace Epicodemon.Models
         Description = rdr.GetString(4);
         SecondaryEffect = rdr.GetString(5);
         PowerPoints = rdr.GetInt32(6);
+        Accuracy = rdr.GetInt32(6);
       }
-      Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, MoveId);
+      Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, Accuracy, MoveId);
       conn.Close();
       if (conn != null)
       {
@@ -182,12 +194,12 @@ namespace Epicodemon.Models
       return newMove;
     }
 
-    public void Edit(string newMoveName, int newBasePower, string newAttackStyle, string newDescription, string newSecondaryEffect, int newPowerPoints)
+    public void Edit(string newMoveName, int newBasePower, string newAttackStyle, string newDescription, string newSecondaryEffect, int newPowerPoints, int newAccuracy)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE moves SET name = @newMoveName, basepower = @newBasePower, attackStyle = @newAttackStyle, description = @newDescription, secondaryEffect = @newSecondaryEffect, powerpoints = @newPowerPoints WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE moves SET name = @newMoveName, basepower = @newBasePower, attackStyle = @newAttackStyle, description = @newDescription, secondaryEffect = @newSecondaryEffect, powerpoints = @newPowerPoints, accuracy= @newAccuracy WHERE id = @searchId;";
 
       cmd.Parameters.Add(new MySqlParameter("@searchId", _moveId));
       cmd.Parameters.Add(new MySqlParameter("@newMoveName", newMoveName));
@@ -196,6 +208,7 @@ namespace Epicodemon.Models
       cmd.Parameters.Add(new MySqlParameter("@newDescription", newDescription));
       cmd.Parameters.Add(new MySqlParameter("@newSecondaryEffect", newSecondaryEffect));
       cmd.Parameters.Add(new MySqlParameter("@newPowerPoints", newPowerPoints));
+      cmd.Parameters.Add(new MySqlParameter("@newAccuracy", newAccuracy));
 
       cmd.ExecuteNonQuery();
       _moveName = newMoveName;
@@ -204,6 +217,7 @@ namespace Epicodemon.Models
       _description = newDescription;
       _secondaryEffect = newSecondaryEffect;
       _powerPoints = newPowerPoints;
+      _accuracy = newAccuracy;
 
       conn.Close();
       if (conn != null)

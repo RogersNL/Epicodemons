@@ -1,0 +1,46 @@
+.enemyStatus{
+  float: left;
+  position: absolute;
+  width: 500px;
+  margin: 15px;
+}
+
+.enemySprite{
+  float: right;
+}
+
+.fighterSprite{
+  float: left;
+  margin-top: 600px;
+}
+
+.fighterStatus{
+  margin-top: 220px;
+  float: right;
+  width: 500px;
+}
+
+.attack{
+  width: 300px;
+  height: 100px;
+  border-width: thin;
+}
+
+.attackBar{
+  display: none;
+  margin-top: 20px;
+  float: right;
+  width: 650px;
+}
+
+.menu{
+  margin-top: 20px;
+  float: right;
+  width: 650px;
+}
+
+.menuButton{
+  width: 300px;
+  height: 150px;
+  border-width: thin;
+}
