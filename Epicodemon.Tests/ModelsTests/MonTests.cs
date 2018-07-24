@@ -119,7 +119,7 @@ namespace Epicodemon.Tests
       //Arrange
       Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
       newMon.Save();
-      Battle expectedResult = new Battle("Rattata", 105, 76, 55, 45, 55, 92);
+      Battle expectedResult = new Battle(newMon.GetMonId(), "Rattata", 50, 105, 76, 55, 45, 55, 92);
 
       //Act
       Battle result = newMon.GetAllTrueStats(newMon.GetMonId());

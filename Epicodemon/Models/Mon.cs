@@ -253,21 +253,26 @@ namespace Epicodemon.Models
     public int GetTrueHP()
     {
       Random iv = new Random();
-      // return (((2 * _hitpoints + iv.Next(32)) * _level) / 100) + _level + 10;
-      return (((2 * _hitpoints + 31) * _level) / 100) + _level + 10;
-
+      // float (((2 * (float)_hitpoints + (float)iv.Next(32)) * (float)_level) / 100) + (float)_level + 10;
+      float trueNumber = (((2 * (float)_hitpoints + 31) * (float)_level) / 100) + (float)_level + 10;
+      int rounded = (int)trueNumber;
+      return rounded;
     }
     public int GetTrueStat(int stat)
     {
       Random iv = new Random();
-      // return (((2 * stat + iv.Next(32)) * _level) / 100) + 5;
-      return (((2 * stat + 31) * _level) / 100) + 5;
+      // return (((2 * (float)stat + (float)iv.Next(32)) * (float)_level) / 100) + 5;
+      float trueNumber = (((2 * (float)stat + 31) * (float)_level) / 100) + 5;
+      int rounded = (int)trueNumber;
+      return rounded;
 
     }
     public Battle GetAllTrueStats(int id)
     {
       Mon newMon = Mon.Find(id);
+      int mon_Id = _monId;
       string monName = _monName;
+      int level = _level;
       int trueHP = newMon.GetTrueHP();
       int trueAttack = newMon.GetTrueStat(_attack);
       int trueDefense = newMon.GetTrueStat(_defense);
@@ -275,7 +280,7 @@ namespace Epicodemon.Models
       int trueSpecialdefense = newMon.GetTrueStat(_specialdefense);
       int trueSpeed = newMon.GetTrueStat(_speed);
 
-      return new Battle(monName, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
+      return new Battle(mon_Id, monName, level, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
     }
   }
 }
