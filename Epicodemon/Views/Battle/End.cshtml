@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="../css/styles.css" rel="stylesheet" type="text/css">
+
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/scripts.js"></script>
+
+  <title>Epicodemon</title>
+
+</head>
+<body>
+  <div class="container">
+
+
+    <div class="enemyStatus">
+      <div class="well">
+        <h3>@Model["computer"].GetBattleName()</h3>
+        <h3>Level: @Model["computer"].GetLevel()</h3>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="enemySprite">
+      <img src="img/combat.jpg" alt="" width="500px">
+    </div>
+
+    <div class="fighterSprite">
+      <img src="img/hambirder.jpg" alt="" width="300px">
+    </div>
+
+    <div class="fighterStatus">
+      <div class="well">
+        <h3>@Model["player"].GetBattleName()</h3>
+        <h3>Level: @Model["player"].GetLevel()</h3>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width:@Model["player"].GetHitpointsPercent()%">
+          </div>
+        </div>
+        <h3>HP: @Model["player"].GetHitpoints()/@Model["player"].GetTotalHitpoints()</h3>
+      </div>
+    </div>
+
+
+    <div class="attackBar">
+      <div class="well">
+        @foreach(var move in Model["playerMoves"])
+        {
+            <button type="submit" class="attack">@move.GetMoveName()</button>
+        }
+      </div>
+    </div>
+
+    <div class="menu">
+      <div class="well">
+          <button type="click" class="menuButton">Fight</button>
+          <button type="button" class="menuButton">Switch</button>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Epicodemon.Models;
+using System;
 
 namespace Epicodemon.Controllers
 {
@@ -52,30 +53,76 @@ namespace Epicodemon.Controllers
       Battle computer = Battle.FindComputer();
       Move playerMove = Move.Find(id);
       List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
+
       //Speed Check
-      if(player.GetSpeed() > computer.GetSpeed())
+      int tie = 0;
+      if (computer.GetSpeed() == player.GetSpeed())
+      {
+        Random speedTie = new Random();
+        tie = speedTie.Next(1,3);
+      }
+      if(player.GetSpeed() > computer.GetSpeed() || tie == 1)
       {
         int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
         if(newHP > 0)
         {
           computer.SetNewHP(newHP);
-          
+          Random move = new Random();
+          Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
+          int otherHP = player.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), computerMove);
+          if(otherHP > 0)
+          {
+            player.SetNewHP(otherHP);
+            return RedirectToAction("Combat");
+          }
         }
         else
         {
           computer.SetNewHP(0);
+          return RedirectToAction("End");
         }
-
       }
-      else if (player.GetSpeed() < computer.GetSpeed())
+      else if (player.GetSpeed() < computer.GetSpeed() || tie == 2)
       {
-
+        Random move = new Random();
+        Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
+        int otherHP = player.GetHitpoints() - Battle.BaseDamage(computer.GetBattleId(), computerMove);
+        if(otherHP > 0)
+        {
+          player.SetNewHP(otherHP);
+          int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
+          if(newHP > 0)
+          {
+            computer.SetNewHP(newHP);
+            return RedirectToAction("Combat");
+          }
+          else
+          {
+            computer.SetNewHP(0);
+            return RedirectToAction("End");
+          }
+        }
+        else
+        {
+          player.SetNewHP(0);
+          return RedirectToAction("End");
+        }
       }
-      else if (player.GetSpeed() == computer.GetSpeed())
-      {
 
-      }
-      // return RedirectToAction("Combat");
+      return RedirectToAction("Index");
+    }
+    [HttpGet("/Battle/End")]
+    public ActionResult End()
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
+
+      model.Add("player", player);
+      model.Add("computer", computer);
+      model.Add("playerMoves", playerMoves);
+      return View(model);
     }
   }
 }

@@ -669,19 +669,19 @@ namespace Epicodemon.Models
         string BattleName = rdr.GetString(2);
         int Level = rdr.GetInt32(3);
         int TotalHitpoints = rdr.GetInt32(4);
-        int Hitpoints = rdr.GetInt32(4);
-        int Attack = rdr.GetInt32(5);
-        int Defense = rdr.GetInt32(6);
-        int Specialattack = rdr.GetInt32(7);
-        int Specialdefense = rdr.GetInt32(8);
-        int Speed = rdr.GetInt32(9);
-        int Move1pp = rdr.GetInt32(10);
-        int Move2pp = rdr.GetInt32(11);
-        int Move3pp = rdr.GetInt32(12);
-        int Move4pp = rdr.GetInt32(13);
-        bool IsPlayer = rdr.GetBoolean(14);
-        bool IsComputer = rdr.GetBoolean(15);
-        bool IsActive = rdr.GetBoolean(16);
+        int Hitpoints = rdr.GetInt32(5);
+        int Attack = rdr.GetInt32(6);
+        int Defense = rdr.GetInt32(7);
+        int Specialattack = rdr.GetInt32(8);
+        int Specialdefense = rdr.GetInt32(9);
+        int Speed = rdr.GetInt32(10);
+        int Move1pp = rdr.GetInt32(11);
+        int Move2pp = rdr.GetInt32(12);
+        int Move3pp = rdr.GetInt32(13);
+        int Move4pp = rdr.GetInt32(14);
+        bool IsPlayer = rdr.GetBoolean(15);
+        bool IsComputer = rdr.GetBoolean(16);
+        bool IsActive = rdr.GetBoolean(17);
 
         Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
         twoBattles.Add(newBattle);
@@ -691,67 +691,74 @@ namespace Epicodemon.Models
       {
         conn.Dispose();
       }
-
       //Player Attack
-      if (attackerId == twoBattles[0].GetMon_Id() && twoBattles[0].GetIsPlayer())
+      if (attackerId == twoBattles[0].GetBattleId() && twoBattles[0].GetIsPlayer())
       {
         if (usedMove.GetAttackStyle().Equals("physical"))
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetAttack()/(float)twoBattles[1].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetSpecialattack()/(float)twoBattles[1].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
       }
-      else if (attackerId == twoBattles[1].GetMon_Id() && twoBattles[1].GetIsPlayer())
+      else if (attackerId == twoBattles[1].GetBattleId() && twoBattles[1].GetIsPlayer())
       {
         if (usedMove.GetAttackStyle().Equals("physical"))
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetAttack()/(float)twoBattles[0].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetSpecialattack()/(float)twoBattles[0].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
       }
       //Computer Attack
-      else if (attackerId == twoBattles[0].GetMon_Id() && twoBattles[0].GetIsComputer())
+      else if (attackerId == twoBattles[0].GetBattleId() && twoBattles[0].GetIsComputer())
       {
         if (usedMove.GetAttackStyle().Equals("physical"))
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetAttack()/(float)twoBattles[1].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetSpecialattack()/(float)twoBattles[1].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
           // return (((((2 * twoBattles[0].GetLevel()) / 5) + 2) * usedMove.GetBasePower() * (twoBattles[0].GetSpecialattack()/twoBattles[1].GetSpecialdefense())) / 50) + 2;
         }
       }
-      else if (attackerId == twoBattles[1].GetMon_Id() && twoBattles[1].GetIsComputer())
+      else if (attackerId == twoBattles[1].GetBattleId() && twoBattles[1].GetIsComputer())
       {
         if (usedMove.GetAttackStyle().Equals("physical"))
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetAttack()/(float)twoBattles[0].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetSpecialattack()/(float)twoBattles[0].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
+          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
       }
