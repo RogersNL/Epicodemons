@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 24, 2018 at 08:53 PM
+-- Generation Time: Jul 25, 2018 at 01:34 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -54,8 +54,8 @@ CREATE TABLE `battle` (
 --
 
 INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
-(9, 2, 'Hambirder', 5, 21, 15, 12, 10, 13, 11, 11, 0, 0, 0, 0, 1, 0, 1),
-(10, 3, 'Seasharp', 5, 21, 21, 13, 11, 11, 11, 10, 0, 0, 0, 0, 0, 1, 1);
+(75, 2, 'Hambirder', 5, 21, 1, 12, 10, 13, 11, 11, 0, 0, 0, 0, 1, 0, 1),
+(76, 3, 'Seasharp', 5, 21, 0, 13, 11, 11, 11, 10, 0, 0, 0, 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -109,8 +109,47 @@ CREATE TABLE `moves` (
   `attackstyle` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `secondaryeffect` varchar(255) NOT NULL,
-  `powerpoints` int(11) NOT NULL
+  `powerpoints` int(11) NOT NULL,
+  `accuracy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `moves`
+--
+
+INSERT INTO `moves` (`id`, `name`, `basepower`, `attackstyle`, `description`, `secondaryeffect`, `powerpoints`, `accuracy`) VALUES
+(1, 'Static Void', 210, 'special', 'OP', 'par 50', 5, 0),
+(2, 'Attackle', 35, 'physical', 'none', 'none', 95, 0),
+(3, 'scrape', 35, 'physical', 'none', 'none', 35, 0),
+(4, 'poke', 35, 'physical', 'none', 'none', 35, 95),
+(5, 'Hyper Splash', 0, 'special', 'better than splash', 'rcg', 5, 100),
+(6, 'Shred', 80, 'special', 'has chance to make the opponent flinch', 'flc 30', 20, 95),
+(7, 'Act', 40, 'physical', 'There is no escape from the madness that is coding', 'par 70', 10, 100),
+(8, 'Arrange', 0, 'boost', 'boosts stats ', 'bst att spd', 20, 100),
+(9, 'Assert', 100, 'physical', 'assert yo self!', 'none', 10, 80),
+(10, 'Test Patty', 120, 'physical', 'attack at reckless un controllable speed', 'none', 15, 50),
+(11, 'Cadence', 35, 'physical', 'moves in a calculated, repetitive way', 'bst def', 10, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moves_mons`
+--
+
+CREATE TABLE `moves_mons` (
+  `id` int(11) NOT NULL,
+  `moves_id` int(11) NOT NULL,
+  `mons_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `moves_mons`
+--
+
+INSERT INTO `moves_mons` (`id`, `moves_id`, `mons_id`) VALUES
+(1, 2, 2),
+(2, 3, 1),
+(3, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -194,6 +233,12 @@ ALTER TABLE `moves`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `moves_mons`
+--
+ALTER TABLE `moves_mons`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `types`
 --
 ALTER TABLE `types`
@@ -207,7 +252,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `battle`
 --
 ALTER TABLE `battle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `mons`
 --
@@ -222,7 +267,12 @@ ALTER TABLE `mons_battle`
 -- AUTO_INCREMENT for table `moves`
 --
 ALTER TABLE `moves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `moves_mons`
+--
+ALTER TABLE `moves_mons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `types`
 --
