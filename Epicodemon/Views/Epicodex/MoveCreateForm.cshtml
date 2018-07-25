@@ -1,3 +1,5 @@
+@using Epicodemon.Models;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,42 @@
 <body>
   <div class="container">
     <h1>Epicodex</h1>
-
+    <h2>Create a Move</h2>
+    <form action="/Epicodex/Dev/AddMove" method="post">
+      <label for="movename">Name</label>
+      <input name="movename" type="text" class="form-control" required>
+      <label for="movedescription">Move Description</label>
+      <input name="movedescription" type="text" class="form-control" required>
+      <label for="movebasepower">Base Power</label>
+      <input name="movebasepower" type="number" class="form-control" required>
+      <label for="movepp">Power Points</label>
+      <input name="movepp" type="number" class="form-control" required>
+      <label for="moveaccuracy">Accuracy</label>
+      <input name="moveaccuracy" type="number" class="form-control" required>
+      <br>
+      <label for="movetype">Move Type</label>
+      <select name="movetype">
+      @foreach(var type in @MonType.GetAllMonTypes())
+      {
+        <option value="@type.GetMonTypeName()">@type.GetMonTypeName()</option>
+      }
+      </select>
+      <br>
+      <label for="movestyle">Move Style</label>
+      <select name="movestyle">
+        <option value="physical">Physical</option>
+        <option value="special">Special</option>
+        <option value="status">Status</option>
+        <option value="boost">Boost</option>
+      </select>
+      <br>
+      <label for="secondaryeffect">Secondary Effect</label>
+      <select name="secondaryeffect">
+        <option value="none">None</option>
+      </select>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-success">Add</button>
   </div>
 </body>
 </html>
