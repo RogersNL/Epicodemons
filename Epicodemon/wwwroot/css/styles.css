@@ -1,3 +1,33 @@
+.epicodex
+{
+  background-image: url("../img/screenv2.jpg");
+  background-repeat: repeat-y;
+  background-size: auto;
+  background-position: top;
+  color: lightblue;
+}
+.epicodexlinks
+{
+  color: lightgreen;
+}
+.epicodexlinks:visted
+{
+  color: lightgreen;
+}
+.epicodexlinks:hover
+{
+  color: lightgreen;
+}
+.well
+{
+  width: 250px;
+  background-color: darkgreen;
+}
+.form-control
+{
+  width: 300px;
+}
+
 .enemyStatus
 {
   float: left;
