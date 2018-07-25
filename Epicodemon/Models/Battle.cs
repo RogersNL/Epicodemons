@@ -776,12 +776,12 @@ namespace Epicodemon.Models
       }
       if(player.GetSpeed() > computer.GetSpeed() || tie == 1)
       {
-        float newHP = (float)computer.GetHitpoints() - (float)Battle.BaseDamage(player.GetBattleId(), playerMove) * (float)MonType.TypeMultiplier(computerMon, playerMove);
+        double newHP = (double)computer.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), playerMove) * (double)MonType.TypeMultiplier(computerMon, playerMove);
         int roundHP = (int)newHP;
         if(roundHP > 0)
         {
           computer.SetNewHP(roundHP);
-          float otherHP = (float)player.GetHitpoints() - (float)Battle.BaseDamage(player.GetBattleId(), computerMove) * (float)MonType.TypeMultiplier(playerMon, computerMove);
+          double otherHP = (double)player.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), computerMove) * (double)MonType.TypeMultiplier(playerMon, computerMove);
           int roundOtherHP = (int)otherHP;
           if(roundOtherHP > 0)
           {
@@ -795,12 +795,12 @@ namespace Epicodemon.Models
       }
       else if (player.GetSpeed() < computer.GetSpeed() || tie == 2)
       {
-        float otherHP = (float)player.GetHitpoints() - (float)Battle.BaseDamage(computer.GetBattleId(), computerMove) * (float)MonType.TypeMultiplier(playerMon, computerMove);
+        double otherHP = (double)player.GetHitpoints() - (double)Battle.BaseDamage(computer.GetBattleId(), computerMove) * (double)MonType.TypeMultiplier(playerMon, computerMove);
         int roundOtherHP = (int)otherHP;
         if(roundOtherHP > 0)
         {
           player.SetNewHP(roundOtherHP);
-          float newHP = (float)computer.GetHitpoints() - (float)Battle.BaseDamage(player.GetBattleId(), playerMove) * (float)MonType.TypeMultiplier(computerMon, playerMove);
+          double newHP = (double)computer.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), playerMove) * (double)MonType.TypeMultiplier(computerMon, playerMove);
           int roundHP = (int)newHP;
           if(roundHP > 0)
           {
