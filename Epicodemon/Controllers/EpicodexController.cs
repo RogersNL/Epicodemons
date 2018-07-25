@@ -16,6 +16,18 @@ namespace Epicodemon.Controllers
     {
       return View(Mon.GetAllMons());
     }
+    [HttpGet("/Epicodex/Mons/{id}/View")]
+    public ActionResult View(int id)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Mon selectedMon = Mon.Find(id);
+      List<Move> monsmoves = selectedMon.GetMoves();
+
+      model.Add("mon", selectedMon);
+      model.Add("moves", monsmoves);
+      
+      return View(model);
+    }
     [HttpGet("/Epicodex/Moves")]
     public ActionResult Moves()
     {

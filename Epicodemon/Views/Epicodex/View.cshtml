@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="~/css/styles.css" rel="stylesheet" type="text/css">
+  <script src="~/js/jquery-3.3.1.js"></script>
+  <script src="~/js/scripts.js"></script>
+  <title>Epicodemon</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Epicodex</h1>
+    <h4>@Model["mon"].GetMonName()</h4>
+    <p><img class="Epicodex-pic" src="~/img/@Model["mon"].GetMonName()pic.jpg"></p>
+    <ul>
+      <li>Level: @Model["mon"].GetLevel()</li>
+      <li>Base HP: @Model["mon"].GetHitpoints()</li>
+      <li>Base Attack: @Model["mon"].GetAttack()</li>
+      <li>Base Defense: @Model["mon"].GetDefense()</li>
+      <li>Base Special Attack: @Model["mon"].GetSpecialattack()</li>
+      <li>Base Special Defense: @Model["mon"].GetSpecialdefense()</li>
+      <li>Base Speed: @Model["mon"].GetSpeed()</li>
+    </ul>
+    <h4>Moves</h4>
+    <ol>
+    @foreach(var move in Model["moves"])
+    {
+      <li>@move.GetMoveName()</li>
+    }
+    </ol>
+    <br>
+    <p><a href="/Epicodex/Mons">Back</a></p>
+  </div>
+</body>
+</html>
