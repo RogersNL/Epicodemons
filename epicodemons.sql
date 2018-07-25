@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 25, 2018 at 07:40 AM
--- Server version: 5.6.34-log
--- PHP Version: 7.2.1
+-- Generation Time: Jul 25, 2018 at 11:54 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -56,8 +54,29 @@ CREATE TABLE `battle` (
 --
 
 INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
-(129, 1, 'Quombat', 5, 20, 10, 11, 10, 13, 12, 13, 0, 0, 0, 0, 1, 0, 1),
-(130, 2, 'Hambirder', 5, 21, 0, 12, 10, 13, 11, 11, 0, 0, 0, 0, 0, 1, 1);
+(283, 2, 'Hambirder', 5, 21, 6, 12, 10, 13, 11, 11, 0, 0, 0, 0, 1, 0, 1),
+(284, 3, 'Seasharp', 5, 21, 10, 13, 11, 11, 11, 10, 0, 0, 0, 0, 0, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `message`) VALUES
+(1, 'It\'s a Critical Hit!'),
+(5, 'It\'s a Critical Hit!'),
+(10, 'new message'),
+(11, 'new message');
 
 -- --------------------------------------------------------
 
@@ -176,7 +195,8 @@ INSERT INTO `moves_mons` (`id`, `moves_id`, `mons_id`) VALUES
 (3, 4, 3),
 (4, 7, 1),
 (5, 7, 2),
-(6, 7, 3);
+(6, 7, 3),
+(7, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -271,6 +291,12 @@ ALTER TABLE `battle`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mons`
 --
 ALTER TABLE `mons`
@@ -320,7 +346,12 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `battle`
 --
 ALTER TABLE `battle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=285;
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `mons`
 --
@@ -345,7 +376,7 @@ ALTER TABLE `moves`
 -- AUTO_INCREMENT for table `moves_mons`
 --
 ALTER TABLE `moves_mons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `moves_types`
 --
@@ -355,8 +386,7 @@ ALTER TABLE `moves_types`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;COMMIT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
