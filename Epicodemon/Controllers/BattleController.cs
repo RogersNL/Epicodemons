@@ -49,67 +49,17 @@ namespace Epicodemon.Controllers
     [HttpPost("/Battle/Combat/{id}")]
     public ActionResult TurnSequence(int id)
     {
+      Battle.PlayerAttack(id);
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
-      Move playerMove = Move.Find(id);
-      List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
-
-      //Speed Check
-      int tie = 0;
-      if (computer.GetSpeed() == player.GetSpeed())
+      if(player.GetHitpoints() == 0 || computer.GetHitpoints() == 0)
       {
-        Random speedTie = new Random();
-        tie = speedTie.Next(1,3);
+        return RedirectToAction("End");
       }
-      if(player.GetSpeed() > computer.GetSpeed() || tie == 1)
+      else
       {
-        int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
-        if(newHP > 0)
-        {
-          computer.SetNewHP(newHP);
-          Random move = new Random();
-          Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
-          int otherHP = player.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), computerMove);
-          if(otherHP > 0)
-          {
-            player.SetNewHP(otherHP);
-            return RedirectToAction("Combat");
-          }
-        }
-        else
-        {
-          computer.SetNewHP(0);
-          return RedirectToAction("End");
-        }
+        return RedirectToAction("Combat");
       }
-      else if (player.GetSpeed() < computer.GetSpeed() || tie == 2)
-      {
-        Random move = new Random();
-        Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
-        int otherHP = player.GetHitpoints() - Battle.BaseDamage(computer.GetBattleId(), computerMove);
-        if(otherHP > 0)
-        {
-          player.SetNewHP(otherHP);
-          int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
-          if(newHP > 0)
-          {
-            computer.SetNewHP(newHP);
-            return RedirectToAction("Combat");
-          }
-          else
-          {
-            computer.SetNewHP(0);
-            return RedirectToAction("End");
-          }
-        }
-        else
-        {
-          player.SetNewHP(0);
-          return RedirectToAction("End");
-        }
-      }
-
-      return RedirectToAction("Index");
     }
     [HttpGet("/Battle/End")]
     public ActionResult End()

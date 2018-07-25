@@ -698,14 +698,12 @@ namespace Epicodemon.Models
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetAttack()/(float)twoBattles[1].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetSpecialattack()/(float)twoBattles[1].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
       }
@@ -715,14 +713,12 @@ namespace Epicodemon.Models
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetAttack()/(float)twoBattles[0].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetSpecialattack()/(float)twoBattles[0].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
       }
@@ -733,14 +729,12 @@ namespace Epicodemon.Models
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetAttack()/(float)twoBattles[1].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[0].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[0].GetSpecialattack()/(float)twoBattles[1].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
           // return (((((2 * twoBattles[0].GetLevel()) / 5) + 2) * usedMove.GetBasePower() * (twoBattles[0].GetSpecialattack()/twoBattles[1].GetSpecialdefense())) / 50) + 2;
         }
@@ -751,18 +745,73 @@ namespace Epicodemon.Models
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetAttack()/(float)twoBattles[0].GetDefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
         else if (usedMove.GetAttackStyle().Equals("special"))
         {
           float baseDamage = (((((2 * (float)twoBattles[1].GetLevel()) / 5) + 2) * (float)usedMove.GetBasePower() * ((float)twoBattles[1].GetSpecialattack()/(float)twoBattles[0].GetSpecialdefense())) / 50) + 2;
           int rounded = (int)baseDamage;
-          Console.WriteLine((float)twoBattles[0].GetAttack());
           return rounded;
         }
       }
       return 0;
+    }
+    public static void PlayerAttack(int id)
+    {
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      Move playerMove = Move.Find(id);
+      List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
+
+      //Speed Check
+      int tie = 0;
+      if (computer.GetSpeed() == player.GetSpeed())
+      {
+        Random speedTie = new Random();
+        tie = speedTie.Next(1,3);
+      }
+      if(player.GetSpeed() > computer.GetSpeed() || tie == 1)
+      {
+        int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
+        if(newHP > 0)
+        {
+          computer.SetNewHP(newHP);
+          Random move = new Random();
+          Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
+          int otherHP = player.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), computerMove);
+          if(otherHP > 0)
+          {
+            player.SetNewHP(otherHP);
+          }
+        }
+        else
+        {
+          computer.SetNewHP(0);
+        }
+      }
+      else if (player.GetSpeed() < computer.GetSpeed() || tie == 2)
+      {
+        Random move = new Random();
+        Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
+        int otherHP = player.GetHitpoints() - Battle.BaseDamage(computer.GetBattleId(), computerMove);
+        if(otherHP > 0)
+        {
+          player.SetNewHP(otherHP);
+          int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
+          if(newHP > 0)
+          {
+            computer.SetNewHP(newHP);
+          }
+          else
+          {
+            computer.SetNewHP(0);
+          }
+        }
+        else
+        {
+          player.SetNewHP(0);
+        }
+      }
     }
   }
 }
