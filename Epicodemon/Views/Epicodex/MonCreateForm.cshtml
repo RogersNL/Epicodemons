@@ -1,3 +1,5 @@
+@using Epicodemon.Models;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +13,32 @@
 <body>
   <div class="container">
     <h1>Epicodex</h1>
+    <h2>Create-a-Mon</h2>
+    <form action="/Epicodex/Dev/AddMon" method="post">
+      <label for="monname">Name</label>
+      <input name="monname" type="text" class="form-control" required>
+      <label for="monlevel">Level</label>
+      <input name="monlevel" type="number" class="form-control" required>
+      <label for="monhp">Base Health</label>
+      <input name="monhp" type="number" class="form-control" required>
+      <label for="monattack">Base Attack</label>
+      <input name="monattack" type="number" class="form-control" required>
+      <label for="mondefense">Base Defense</label>
+      <input name="mondefense" type="number" class="form-control" required>
+      <label for="monspecialattack">Base Special Attack</label>
+      <input name="monspecialattack" type="number" class="form-control" required>
+      <label for="monspecialdefense">Base Special Defense</label>
+      <input name="monspecialdefense" type="number" class="form-control" required>
+      <label for="monspeed">Base Speed</label>
+      <input name="monspeed" type="number" class="form-control" required>
+      <label for="montype1">Type One</label>
+      <select name="montype1">
+      @foreach(var type in @MonType.GetAllMonTypes())
+      {
+        <option value="@type.GetMonTypeName()">@type.GetMonTypeName()</option>
+      }
+
+    </form>
 
   </div>
 </body>

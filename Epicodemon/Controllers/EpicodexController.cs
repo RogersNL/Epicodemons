@@ -21,5 +21,15 @@ namespace Epicodemon.Controllers
     {
       return View(Move.GetAllMoves());
     }
+    [HttpGet("/Epicodex/Dev")]
+    public ActionResult Dev()
+    {
+      return View();
+    }
+    [HttpGet("/Epicodex/Dev/MonCreateForm")]
+    public ActionResult MonCreateForm()
+    {
+      return View();
+    }
   }
 }
