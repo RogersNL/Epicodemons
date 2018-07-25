@@ -1,3 +1,6 @@
+@using Epicodemon.Models
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,10 +54,10 @@
 
 
     <div class="attackBar">
-      <div class="well">
+      <div class="well row">
         @foreach(var move in Model["playerMoves"])
         {
-          <form class="attack" action="/Battle/Combat/@move.GetMoveId()" method="post">
+          <form class="attack col-md-6" action="/Battle/Combat/@move.GetMoveId()" method="post">
             <button type="submit" class="attack">@move.GetMoveName()</button>
           </form>
         }
@@ -69,6 +72,22 @@
         </form>
 
       </div>
+    </div>
+    <div class="msgbox">
+      <div class="well" id="text">
+        <p>hi</p>
+        @for(var index = 0; index < @Model["turnMessages"].Count; index++)
+        {
+          <form id="form-@index" class="initial-hidden message-@index">
+            <p> @Model["turnMessages"][@index].GetMessageName()</p>
+            <select class="hidden" id="formindex">
+              <option value="@index"></option>
+            </select>
+            <button type="submit" onclick="" name="button">Continue</button>
+          </form>
+        }
+      </div>
+
     </div>
 
   </div>

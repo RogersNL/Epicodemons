@@ -344,5 +344,19 @@ namespace Epicodemon.Models
       }
       return multiply;
     }
+    public static double STABMultiplier(Mon attackingMon, Move attackingMove)
+    {
+      List<MonType> monType = attackingMon.GetMonTypes();
+      MonType attackType = attackingMove.GetMonType();
+      double multiply = 1;
+      foreach(MonType type in monType)
+      {
+        if(type.GetMonTypeName().Equals(attackType.GetMonTypeName()))
+        {
+          multiply = multiply * 1.5;
+        }
+      }
+      return multiply;
+    }
   }
 }

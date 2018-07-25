@@ -6,21 +6,21 @@
 /Users/Guest/Desktop/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.pdb
 /Users/Guest/Desktop/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.dll
 /Users/Guest/Desktop/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.pdb
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.deps.json
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.runtimeconfig.json
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.runtimeconfig.dev.json
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.csproj.CoreCompileInputs.cache
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.AssemblyInfo.cs
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.dll
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.pdb
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.dll
-C:\Users\Cheshire Cat\Desktop\Coding\C#\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.pdb
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.deps.json
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.runtimeconfig.json
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.runtimeconfig.dev.json
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.csproj.CoreCompileInputs.cache
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.AssemblyInfo.cs
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.dll
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\obj\Debug\netcoreapp1.1\Epicodemon.pdb
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.dll
-C:\Users\roger\Desktop\Epicodus\Epicodemons\Epicodemon\bin\Debug\netcoreapp1.1\Epicodemon.pdb
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.deps.json
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.runtimeconfig.json
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.runtimeconfig.dev.json
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.csproj.CoreCompileInputs.cache
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.AssemblyInfo.cs
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.dll
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.pdb
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.dll
+C:/Users/Cheshire Cat/Desktop/Coding/C#/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.pdb
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.deps.json
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.runtimeconfig.json
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.runtimeconfig.dev.json
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.csproj.CoreCompileInputs.cache
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.AssemblyInfo.cs
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.dll
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/obj/Debug/netcoreapp1.1/Epicodemon.pdb
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.dll
+C:/Users/roger/Desktop/Epicodus/Epicodemons/Epicodemon/bin/Debug/netcoreapp1.1/Epicodemon.pdb

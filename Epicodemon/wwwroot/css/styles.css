@@ -57,3 +57,14 @@
 {
 height: 100px;
 }
+
+.msgbox
+{
+  /*position: absolute;*/
+  margin-top: 700px;
+}
+
+.initial-hidden
+{
+  display: none;
+}

@@ -756,7 +756,7 @@ namespace Epicodemon.Models
       }
       return 0;
     }
-    public static void BaseSequence(int id)
+    public static void Sequence(int id)
     {
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
@@ -765,7 +765,7 @@ namespace Epicodemon.Models
       Move playerMove = Move.Find(id);
       List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
       Random move = new Random();
-      Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
+      Move computerMove = computerMoves[move.Next(computerMoves.Count)];
 
       //Speed Check
       int tie = 0;
@@ -776,16 +776,21 @@ namespace Epicodemon.Models
       }
       if(player.GetSpeed() > computer.GetSpeed() || tie == 1)
       {
-        double newHP = (double)computer.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), playerMove) * (double)MonType.TypeMultiplier(computerMon, playerMove);
+        double newHP = (double)computer.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), playerMove) * (double)MonType.TypeMultiplier(computerMon, playerMove) * (double)MonType.STABMultiplier(playerMon, playerMove) * (double)playerMove.AccuracyMultiplier() * (double)Battle.CritMultiplier();
         int roundHP = (int)newHP;
         if(roundHP > 0)
         {
           computer.SetNewHP(roundHP);
-          double otherHP = (double)player.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), computerMove) * (double)MonType.TypeMultiplier(playerMon, computerMove);
+          double otherHP = (double)player.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), computerMove) * (double)MonType.TypeMultiplier(playerMon, computerMove) * (double)MonType.STABMultiplier(computerMon, computerMove) * (double)computerMove.AccuracyMultiplier() * (double)Battle.CritMultiplier();
           int roundOtherHP = (int)otherHP;
+
           if(roundOtherHP > 0)
           {
             player.SetNewHP(roundOtherHP);
+          }
+          else
+          {
+            player.SetNewHP(0);
           }
         }
         else
@@ -795,12 +800,13 @@ namespace Epicodemon.Models
       }
       else if (player.GetSpeed() < computer.GetSpeed() || tie == 2)
       {
-        double otherHP = (double)player.GetHitpoints() - (double)Battle.BaseDamage(computer.GetBattleId(), computerMove) * (double)MonType.TypeMultiplier(playerMon, computerMove);
+        double otherHP = (double)player.GetHitpoints() - (double)Battle.BaseDamage(computer.GetBattleId(), computerMove) * (double)MonType.TypeMultiplier(playerMon, computerMove) * (double)MonType.STABMultiplier(playerMon, playerMove) * (double)playerMove.AccuracyMultiplier() * (double)Battle.CritMultiplier();
         int roundOtherHP = (int)otherHP;
+
         if(roundOtherHP > 0)
         {
           player.SetNewHP(roundOtherHP);
-          double newHP = (double)computer.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), playerMove) * (double)MonType.TypeMultiplier(computerMon, playerMove);
+          double newHP = (double)computer.GetHitpoints() - (double)Battle.BaseDamage(player.GetBattleId(), playerMove) * (double)MonType.TypeMultiplier(computerMon, playerMove) * (double)MonType.STABMultiplier(computerMon, computerMove) * (double)computerMove.AccuracyMultiplier();
           int roundHP = (int)newHP;
           if(roundHP > 0)
           {
@@ -815,6 +821,20 @@ namespace Epicodemon.Models
         {
           player.SetNewHP(0);
         }
+      }
+    }
+    public static double CritMultiplier()
+    {
+      Random rand = new Random();
+      if(rand.Next(32) == 1)
+      {
+        Message newMessage = new Message("It's a Critical Hit!");
+        newMessage.Save();
+        return 1.5;
+      }
+      else
+      {
+        return 1;
       }
     }
   }

@@ -126,7 +126,7 @@ namespace Epicodemon.Models
         string Description = rdr.GetString(4);
         string SecondaryEffect = rdr.GetString(5);
         int PowerPoints = rdr.GetInt32(6);
-        int Accuracy = rdr.GetInt32(6);
+        int Accuracy = rdr.GetInt32(7);
         Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, Accuracy, MoveId);
         allMoves.Add(newMove);
       }
@@ -182,7 +182,7 @@ namespace Epicodemon.Models
         Description = rdr.GetString(4);
         SecondaryEffect = rdr.GetString(5);
         PowerPoints = rdr.GetInt32(6);
-        Accuracy = rdr.GetInt32(6);
+        Accuracy = rdr.GetInt32(7);
       }
       Move newMove = new Move(MoveName, BasePower, AttackStyle, Description, SecondaryEffect, PowerPoints, Accuracy, MoveId);
       conn.Close();
@@ -321,6 +321,18 @@ namespace Epicodemon.Models
       }
       return newMonType;
       // return new List<MonType>{};
+    }
+    public double AccuracyMultiplier()
+    {
+      Random rand = new Random();
+      if(rand.Next(101) >= _accuracy)
+      {
+        return 0;
+      }
+      else
+      {
+        return 1;
+      }
     }
   }
 }

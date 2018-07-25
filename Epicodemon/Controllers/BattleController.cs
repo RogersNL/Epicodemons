@@ -40,16 +40,18 @@ namespace Epicodemon.Controllers
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
       List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
+      List<Message> turnMessages = Message.GetAllMessages();
 
       model.Add("player", player);
       model.Add("computer", computer);
       model.Add("playerMoves", playerMoves);
+      model.Add("turnMessages", turnMessages);
       return View(model);
     }
     [HttpPost("/Battle/Combat/{id}")]
     public ActionResult TurnSequence(int id)
     {
-      Battle.BaseSequence(id);
+      Battle.Sequence(id);
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
       if(player.GetHitpoints() == 0 || computer.GetHitpoints() == 0)
