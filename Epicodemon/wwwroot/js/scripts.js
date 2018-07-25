@@ -3,21 +3,11 @@ $(document).ready(function(){
     event.preventDefault();
     $(".menu").hide();
     $(".attackBar").toggle();
-
   });
-  $(".message-0").show();
-
-  $("#form-0").submit(function(event){
-    event.preventDefault();
-    var currentMessage = parseInt($("#formindex").val());
-    var nextMessage = currentMessage + 1;
-    $(".message-" + currentMessage).hide();
-    $(".message-" + nextMessage).show();
-    $("#form-" + nextMessage).submit(function(event){
-      event.preventDefault();
-      var currentMessage = $("#formindex").val();
-      $(".message-" + currentMessage).hide();
-      $(".message-" + nextMessage).show();
-    });
+  $(".clickable").first().show();
+  $(".clickable").click(function() {
+    $(this).hide();
+    $(this).next().show();
   });
+  var $progressBar = $(".progress-bar").css('100%', 'width');
 });

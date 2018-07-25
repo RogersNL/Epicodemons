@@ -75,16 +75,9 @@
     </div>
     <div class="msgbox">
       <div class="well" id="text">
-        <p>hi</p>
         @for(var index = 0; index < @Model["turnMessages"].Count; index++)
         {
-          <form id="form-@index" class="initial-hidden message-@index">
-            <p> @Model["turnMessages"][@index].GetMessageName()</p>
-            <select class="hidden" id="formindex">
-              <option value="@index"></option>
-            </select>
-            <button type="submit" onclick="" name="button">Continue</button>
-          </form>
+          <p class="initial-hidden clickable"> @Model["turnMessages"][@index].GetMessageName()</p>
         }
       </div>
 
