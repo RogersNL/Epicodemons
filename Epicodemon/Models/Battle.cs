@@ -756,12 +756,16 @@ namespace Epicodemon.Models
       }
       return 0;
     }
-    public static void PlayerAttack(int id)
+    public static void BaseSequence(int id)
     {
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
+      Mon playerMon = Mon.Find(player.GetMon_Id());
+      Mon computerMon = Mon.Find(computer.GetMon_Id());
       Move playerMove = Move.Find(id);
       List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
+      Random move = new Random();
+      Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
 
       //Speed Check
       int tie = 0;
@@ -772,16 +776,16 @@ namespace Epicodemon.Models
       }
       if(player.GetSpeed() > computer.GetSpeed() || tie == 1)
       {
-        int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
-        if(newHP > 0)
+        float newHP = (float)computer.GetHitpoints() - (float)Battle.BaseDamage(player.GetBattleId(), playerMove) * (float)MonType.TypeMultiplier(computerMon, playerMove);
+        int roundHP = (int)newHP;
+        if(roundHP > 0)
         {
-          computer.SetNewHP(newHP);
-          Random move = new Random();
-          Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
-          int otherHP = player.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), computerMove);
-          if(otherHP > 0)
+          computer.SetNewHP(roundHP);
+          float otherHP = (float)player.GetHitpoints() - (float)Battle.BaseDamage(player.GetBattleId(), computerMove) * (float)MonType.TypeMultiplier(playerMon, computerMove);
+          int roundOtherHP = (int)otherHP;
+          if(roundOtherHP > 0)
           {
-            player.SetNewHP(otherHP);
+            player.SetNewHP(roundOtherHP);
           }
         }
         else
@@ -791,16 +795,16 @@ namespace Epicodemon.Models
       }
       else if (player.GetSpeed() < computer.GetSpeed() || tie == 2)
       {
-        Random move = new Random();
-        Move computerMove = computerMoves[move.Next(computerMoves.Count - 1)];
-        int otherHP = player.GetHitpoints() - Battle.BaseDamage(computer.GetBattleId(), computerMove);
-        if(otherHP > 0)
+        float otherHP = (float)player.GetHitpoints() - (float)Battle.BaseDamage(computer.GetBattleId(), computerMove) * (float)MonType.TypeMultiplier(playerMon, computerMove);
+        int roundOtherHP = (int)otherHP;
+        if(roundOtherHP > 0)
         {
-          player.SetNewHP(otherHP);
-          int newHP = computer.GetHitpoints() - Battle.BaseDamage(player.GetBattleId(), playerMove);
-          if(newHP > 0)
+          player.SetNewHP(roundOtherHP);
+          float newHP = (float)computer.GetHitpoints() - (float)Battle.BaseDamage(player.GetBattleId(), playerMove) * (float)MonType.TypeMultiplier(computerMon, playerMove);
+          int roundHP = (int)newHP;
+          if(roundHP > 0)
           {
-            computer.SetNewHP(newHP);
+            computer.SetNewHP(roundHP);
           }
           else
           {

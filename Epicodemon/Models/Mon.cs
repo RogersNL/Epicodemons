@@ -336,5 +336,71 @@ namespace Epicodemon.Models
 
       return new Battle(mon_Id, monName, level, trueTotalHP, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
     }
+    public void AddMonType(MonType newMonType)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO mons_types (mons_id, types_id) VALUES (@MonId, @TypeId);";
+
+      cmd.Parameters.Add(new MySqlParameter("@MonId", _monId));
+      cmd.Parameters.Add(new MySqlParameter("@TypeId", newMonType.GetMonTypeId()));
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+    public List<MonType> GetMonTypes()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT types.* FROM mons
+      JOIN mons_types ON (mons.id = mons_types.mons_id)
+      JOIN types ON (mons_types.types_id = types.id)
+      WHERE mons.id = @MonId;";
+
+      cmd.Parameters.Add(new MySqlParameter("@MonId", _monId));
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      List<MonType> monTypes = new List<MonType>{};
+
+      while(rdr.Read())
+      {
+        int typesId = rdr.GetInt32(0);
+        string typesName = rdr.GetString(1);
+        int fairy =rdr.GetInt32(2);
+        int steel =rdr.GetInt32(3);
+        int dark =rdr.GetInt32(4);
+        int dragon =rdr.GetInt32(5);
+        int ghost =rdr.GetInt32(6);
+        int rock =rdr.GetInt32(7);
+        int bug =rdr.GetInt32(8);
+        int psychic =rdr.GetInt32(9);
+        int flying =rdr.GetInt32(10);
+        int ground =rdr.GetInt32(11);
+        int poison =rdr.GetInt32(12);
+        int fighting =rdr.GetInt32(13);
+        int ice =rdr.GetInt32(14);
+        int grass =rdr.GetInt32(15);
+        int electric =rdr.GetInt32(16);
+        int water =rdr.GetInt32(17);
+        int fire =rdr.GetInt32(18);
+        int normal =rdr.GetInt32(19);
+        MonType newMonType = new MonType(typesName, fairy, steel, dark, dragon, ghost, rock, bug, psychic, flying, ground, poison, fighting, ice, grass, electric, water, fire, normal, typesId);
+        monTypes.Add(newMonType);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return monTypes;
+      // return new List<MonType>{};
+    }
+
   }
 }

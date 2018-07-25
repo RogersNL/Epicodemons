@@ -49,7 +49,7 @@ namespace Epicodemon.Controllers
     [HttpPost("/Battle/Combat/{id}")]
     public ActionResult TurnSequence(int id)
     {
-      Battle.PlayerAttack(id);
+      Battle.BaseSequence(id);
       Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
       if(player.GetHitpoints() == 0 || computer.GetHitpoints() == 0)

@@ -240,5 +240,87 @@ namespace Epicodemon.Models
         conn.Close();
       }
     }
+    public void AddMonType(MonType newMonType)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO moves_types (moves_id, types_id) VALUES (@MoveId, @TypeId);";
+
+      cmd.Parameters.Add(new MySqlParameter("@MoveId", _moveId));
+      cmd.Parameters.Add(new MySqlParameter("@TypeId", newMonType.GetMonTypeId()));
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+    public MonType GetMonType()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT types.* FROM moves
+      JOIN moves_types ON (moves.id = moves_types.moves_id)
+      JOIN types ON (moves_types.types_id = types.id)
+      WHERE moves.id = @MoveId;";
+
+      cmd.Parameters.Add(new MySqlParameter("@MoveId", _moveId));
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int typesId = 0;
+      string typesName = "";
+      int fairy = 0;
+      int steel = 0;
+      int dark = 0;
+      int dragon = 0;
+      int ghost = 0;
+      int rock = 0;
+      int bug = 0;
+      int psychic = 0;
+      int flying = 0;
+      int ground = 0;
+      int poison = 0;
+      int fighting = 0;
+      int ice = 0;
+      int grass = 0;
+      int electric = 0;
+      int water = 0;
+      int fire = 0;
+      int normal = 0;
+      while(rdr.Read())
+      {
+        typesId = rdr.GetInt32(0);
+        typesName = rdr.GetString(1);
+        fairy = rdr.GetInt32(2);
+        steel = rdr.GetInt32(3);
+        dark = rdr.GetInt32(4);
+        dragon = rdr.GetInt32(5);
+        ghost = rdr.GetInt32(6);
+        rock = rdr.GetInt32(7);
+        bug = rdr.GetInt32(8);
+        psychic = rdr.GetInt32(9);
+        flying = rdr.GetInt32(10);
+        ground = rdr.GetInt32(11);
+        poison = rdr.GetInt32(12);
+        fighting = rdr.GetInt32(13);
+        ice = rdr.GetInt32(14);
+        grass = rdr.GetInt32(15);
+        electric = rdr.GetInt32(16);
+        water = rdr.GetInt32(17);
+        fire = rdr.GetInt32(18);
+        normal = rdr.GetInt32(19);
+      }
+      MonType newMonType = new MonType(typesName, fairy, steel, dark, dragon, ghost, rock, bug, psychic, flying, ground, poison, fighting, ice, grass, electric, water, fire, normal, typesId);
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return newMonType;
+      // return new List<MonType>{};
+    }
   }
 }
