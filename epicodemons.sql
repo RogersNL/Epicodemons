@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 25, 2018 at 01:34 AM
--- Server version: 5.6.35
--- PHP Version: 7.0.15
+-- Generation Time: Jul 25, 2018 at 07:40 AM
+-- Server version: 5.6.34-log
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -54,8 +56,8 @@ CREATE TABLE `battle` (
 --
 
 INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
-(75, 2, 'Hambirder', 5, 21, 1, 12, 10, 13, 11, 11, 0, 0, 0, 0, 1, 0, 1),
-(76, 3, 'Seasharp', 5, 21, 0, 13, 11, 11, 11, 10, 0, 0, 0, 0, 0, 1, 1);
+(129, 1, 'Quombat', 5, 20, 10, 11, 10, 13, 12, 13, 0, 0, 0, 0, 1, 0, 1),
+(130, 2, 'Hambirder', 5, 21, 0, 12, 10, 13, 11, 11, 0, 0, 0, 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -99,6 +101,28 @@ CREATE TABLE `mons_battle` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mons_types`
+--
+
+CREATE TABLE `mons_types` (
+  `id` int(11) NOT NULL,
+  `mons_id` int(11) NOT NULL,
+  `types_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `mons_types`
+--
+
+INSERT INTO `mons_types` (`id`, `mons_id`, `types_id`) VALUES
+(1, 1, 14),
+(2, 2, 17),
+(3, 2, 9),
+(4, 3, 16);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `moves`
 --
 
@@ -118,9 +142,9 @@ CREATE TABLE `moves` (
 --
 
 INSERT INTO `moves` (`id`, `name`, `basepower`, `attackstyle`, `description`, `secondaryeffect`, `powerpoints`, `accuracy`) VALUES
-(1, 'Static Void', 210, 'special', 'OP', 'par 50', 5, 0),
-(2, 'Attackle', 35, 'physical', 'none', 'none', 95, 0),
-(3, 'scrape', 35, 'physical', 'none', 'none', 35, 0),
+(1, 'Static Void', 210, 'special', 'OP', 'par 50', 5, 100),
+(2, 'Attackle', 35, 'physical', 'none', 'none', 95, 100),
+(3, 'scrape', 35, 'physical', 'none', 'none', 35, 100),
 (4, 'poke', 35, 'physical', 'none', 'none', 35, 95),
 (5, 'Hyper Splash', 0, 'special', 'better than splash', 'rcg', 5, 100),
 (6, 'Shred', 80, 'special', 'has chance to make the opponent flinch', 'flc 30', 20, 95),
@@ -149,7 +173,39 @@ CREATE TABLE `moves_mons` (
 INSERT INTO `moves_mons` (`id`, `moves_id`, `mons_id`) VALUES
 (1, 2, 2),
 (2, 3, 1),
-(3, 4, 3);
+(3, 4, 3),
+(4, 7, 1),
+(5, 7, 2),
+(6, 7, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moves_types`
+--
+
+CREATE TABLE `moves_types` (
+  `id` int(11) NOT NULL,
+  `moves_id` int(11) NOT NULL,
+  `types_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `moves_types`
+--
+
+INSERT INTO `moves_types` (`id`, `moves_id`, `types_id`) VALUES
+(1, 1, 15),
+(2, 2, 18),
+(3, 3, 18),
+(4, 4, 18),
+(5, 5, 16),
+(6, 6, 6),
+(7, 7, 16),
+(8, 8, 16),
+(9, 9, 16),
+(10, 10, 17),
+(11, 11, 14);
 
 -- --------------------------------------------------------
 
@@ -227,6 +283,12 @@ ALTER TABLE `mons_battle`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mons_types`
+--
+ALTER TABLE `mons_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `moves`
 --
 ALTER TABLE `moves`
@@ -236,6 +298,12 @@ ALTER TABLE `moves`
 -- Indexes for table `moves_mons`
 --
 ALTER TABLE `moves_mons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `moves_types`
+--
+ALTER TABLE `moves_types`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -252,7 +320,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `battle`
 --
 ALTER TABLE `battle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 --
 -- AUTO_INCREMENT for table `mons`
 --
@@ -264,6 +332,11 @@ ALTER TABLE `mons`
 ALTER TABLE `mons_battle`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `mons_types`
+--
+ALTER TABLE `mons_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `moves`
 --
 ALTER TABLE `moves`
@@ -272,12 +345,18 @@ ALTER TABLE `moves`
 -- AUTO_INCREMENT for table `moves_mons`
 --
 ALTER TABLE `moves_mons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `moves_types`
+--
+ALTER TABLE `moves_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
