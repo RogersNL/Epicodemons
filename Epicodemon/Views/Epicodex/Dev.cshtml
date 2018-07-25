@@ -8,13 +8,27 @@
   <script src="~/js/scripts.js"></script>
   <title>Epicodemon</title>
 </head>
-<body>
+<body class="epicodex">
+
+  <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <a class="navbar-brand" href="/Epicodex">Epicodex</a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li><a href="/Epicodex">Home</a></li>
+              <li><a href="/Epicodex/Mons">Mons</a></li>
+              <li><a href="/Epicodex/Moves">Moves</a></li>
+          </ul>
+      </div>
+  </nav>
+
   <div class="container">
     <h1>Epicodex</h1>
     <h3>Developer Tools</h3>
     <p>Add Epicodemon and Moves</p>
-    <p><a href="/Epicodex/Dev/MonCreateForm">Create Mon</a></p>
-    <p><a href="/Epicodex/Dev/MoveCreateForm">Create Move</a></p>
+    <p><a href="/Epicodex/Dev/MonCreateForm" class="epicodexlinks">Create Mon</a></p>
+    <p><a href="/Epicodex/Dev/MoveCreateForm" class="epicodexlinks">Create Move</a></p>
   </div>
 </body>
 </html>
