@@ -31,13 +31,59 @@
       <input name="monspecialdefense" type="number" class="form-control" required>
       <label for="monspeed">Base Speed</label>
       <input name="monspeed" type="number" class="form-control" required>
+      <br>
       <label for="montype1">Type One</label>
       <select name="montype1">
       @foreach(var type in @MonType.GetAllMonTypes())
       {
         <option value="@type.GetMonTypeName()">@type.GetMonTypeName()</option>
       }
-
+      </select>
+      <label for="montype2">Type Two</label>
+      <select name="montype2">
+        <option value="NOOOO">None</option>
+      @foreach(var type in @MonType.GetAllMonTypes())
+      {
+        <option value="@type.GetMonTypeName()">@type.GetMonTypeName()</option>
+      }
+      </select>
+      <br>
+      <br>
+      <h4>Select Moves</h4>
+      <label for="move1">Move One</label>
+      <select name="move1">
+      @foreach(var move in @Move.GetAllMoves())
+      {
+        <option value="@move.GetMoveId()">@move.GetMoveName()</option>
+      }
+      </select>
+      <label for="move2">Move Two</label>
+      <select name="move2">
+        <option value="0">None</option>
+      @foreach(var move in @Move.GetAllMoves())
+      {
+        <option value="@move.GetMoveId()">@move.GetMoveName()</option>
+      }
+      </select>
+      <label for="move3">Move Three</label>
+      <select name="move3">
+        <option value="0">None</option>
+      @foreach(var move in @Move.GetAllMoves())
+      {
+        <option value="@move.GetMoveId()">@move.GetMoveName()</option>
+      }
+      </select>
+      <label for="move4">Move Four</label>
+      <select name="move4">
+        <option value="0">None</option>
+      @foreach(var move in @Move.GetAllMoves())
+      {
+        <option value="@move.GetMoveId()">@move.GetMoveName()</option>
+      }
+      </select>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-success">Add</button>
     </form>
 
   </div>
