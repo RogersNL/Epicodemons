@@ -25,7 +25,7 @@ namespace Epicodemon.Controllers
 
       model.Add("mon", selectedMon);
       model.Add("moves", monsmoves);
-      
+
       return View(model);
     }
     [HttpGet("/Epicodex/Moves")]
@@ -80,6 +80,20 @@ namespace Epicodemon.Controllers
         newMon.AddMove(monmove4);
       }
 
+
+      return RedirectToAction("Dev");
+    }
+    [HttpGet("/Epicodex/Dev/MoveCreateForm")]
+    public ActionResult MoveCreateForm()
+    {
+      return View();
+    }
+    [HttpPost("/Epicodex/Dev/AddMove")]
+    public ActionResult AddNewMon(string movename, string movedescription, int movebasepower, int movepp, int moveaccuracy, string movetype, string movestyle, string secondaryeffect)
+    {
+      Move newMove = new Move(movename, movebasepower, movestyle, movedescription, secondaryeffect, movepp, moveaccuracy);
+
+      newMove.Save();
 
       return RedirectToAction("Dev");
     }
