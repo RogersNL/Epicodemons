@@ -152,7 +152,7 @@ namespace Epicodemon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM mons; DELETE FROM mons_battle;";
+      cmd.CommandText = @"DELETE FROM mons; DELETE FROM mons_battle; DELETE FROM moves_mons; DELETE FROM types ";
 
       cmd.ExecuteNonQuery();
 
