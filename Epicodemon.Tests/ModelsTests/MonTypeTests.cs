@@ -40,7 +40,7 @@ namespace Epicodemon.Tests
       newMonType.Save();
 
       //Act
-      MonType result = MonType.Find(newMonType.GetMonTypeId());
+      MonType result = MonType.Find(newMonType.GetMonTypeName());
 
       //Assert
       Assert.AreEqual(newMonType, result);
