@@ -54,7 +54,7 @@ namespace Epicodemon.Tests
       newMove.Save();
       Move expectedMove = new Move("psychic", 95, "special", "telekenetic boi", "spdef 10", 15, 90, newMove.GetMoveId());
       //Act
-      newMove.Edit("psychic", 95, "special", "telekenetic boi", "spdef 10", 15, 75);
+      newMove.Edit("psychic", 95, "special", "telekenetic boi", "spdef 10", 15, 90);
 
       //Assert
       Assert.AreEqual(expectedMove, newMove);

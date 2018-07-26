@@ -20,8 +20,8 @@ namespace Epicodemon.Tests
     public void Save_GetAllBattles_Test()
     {
       //Arrange
-      Battle newBattle = new Battle(4, "Pikachu", 1, 2, 3, 4, 5, 6, 10, 10, 12, 15);
-      Battle newBattle1 = new Battle(5, "Raichu", 2, 4, 6, 8, 10, 12, 20, 20, 24, 30);
+      Battle newBattle = new Battle(4, "Pikachu",5, 4, 6, 1, 2, 3, 4, 5, 6, 10, 10, 12, 15, true, false, true);
+      Battle newBattle1 = new Battle(5, "Raichu",5, 5, 6, 2, 4, 6, 8, 10, 12, 20, 20, 24, 30, false, true, false);
       newBattle.Save();
       newBattle1.Save();
 
@@ -100,15 +100,15 @@ namespace Epicodemon.Tests
     public void BaseDamage()
     {
       //Arrange
-      Move newMove = new Move("thunderbolt", 95, "special", "zappy boi", "par 10", 15);
+      Move newMove = new Move("thunderbolt", 95, "special", "zappy boi", "par 10", 15, 70);
       Mon attackingMon = new Mon("Raichu-Alola", 50, 60, 85, 50, 95, 85, 110);
       attackingMon.Save();
 
       Mon defendingMon = new Mon("Golduck", 50, 80, 82, 78, 95, 80, 85);
       defendingMon.Save();
 
-      Battle attacking = attackingMon.GetAllTrueStats(attackingMon.GetMonId());
-      Battle defending = defendingMon.GetAllTrueStats(defendingMon.GetMonId());
+      Battle attacking = attackingMon.GetAllTrueStats();
+      Battle defending = defendingMon.GetAllTrueStats();
       attacking.Save();
       attacking.SetPlayerMon();
       attacking.SetActiveMon();
@@ -117,7 +117,7 @@ namespace Epicodemon.Tests
       defending.SetActiveMon();
 
       //Act
-      int result = Battle.BaseDamage(attackingMon.GetMonId(), newMove);
+      int result = Battle.BaseDamage(attacking.GetBattleId(), newMove);
       List<Battle> emptyList = new List<Battle>{};
       //Assert
       Console.WriteLine(result);

@@ -11,6 +11,7 @@ namespace Epicodemon.Tests
     public void Dispose()
     {
       Mon.DeleteAll();
+
     }
     public MonTests()
     {
@@ -19,6 +20,7 @@ namespace Epicodemon.Tests
     [TestMethod]
     public void Save_GetAllMons_Test()
     {
+      Mon.DeleteAll();
       //Arrange
       Mon newMon = new Mon("Pikachu", 1, 2, 3, 4, 5, 6, 10);
       Mon newMon1 = new Mon("Raichu", 2, 4, 6, 8, 10, 12, 20);
@@ -122,7 +124,8 @@ namespace Epicodemon.Tests
       Battle expectedResult = new Battle(newMon.GetMonId(), "Rattata", 50, 105,105, 105, 76, 55, 45, 55, 92);
 
       //Act
-      Battle result = newMon.GetAllTrueStats(newMon.GetMonId());
+
+      Battle result = newMon.GetAllTrueStats();
 
       //Assert
       Assert.AreEqual(expectedResult, result);
