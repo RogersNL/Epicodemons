@@ -119,13 +119,33 @@ namespace Epicodemon.Tests
       //Arrange
       Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
       newMon.Save();
-      Battle expectedResult = new Battle(newMon.GetMonId(), "Rattata", 50, 105, 76, 55, 45, 55, 92);
+      Battle expectedResult = new Battle(newMon.GetMonId(), "Rattata", 50, 105,105, 105, 76, 55, 45, 55, 92);
 
       //Act
       Battle result = newMon.GetAllTrueStats(newMon.GetMonId());
 
       //Assert
       Assert.AreEqual(expectedResult, result);
+    }
+    [TestMethod]
+    public void GetMonTypes_Test()
+    {
+      Mon newMon = new Mon("Rattata", 50, 30, 56, 35, 25, 35, 72);
+        newMon.Save();
+        MonType newMonType = new MonType("Grass");
+        newMonType.Save();
+        MonType newMonType1 = new MonType("Fire");
+        newMonType1.Save();
+
+        //Act
+        newMon.AddMonType(newMonType);
+        newMon.AddMonType(newMonType1);
+
+        List<MonType> expectedResult = new List<MonType>{newMonType, newMonType1};
+        List<MonType> result = newMon.GetMonTypes();
+
+        //Assert
+        CollectionAssert.AreEqual(expectedResult, result);
     }
   }
 }

@@ -11,6 +11,7 @@ namespace Epicodemon.Models
     private string _battleName;
     private int _level;
     private int _totalHitpoints;
+    private int _lastHitpoints;
     private int _hitpoints;
     private int _attack;
     private int _defense;
@@ -25,13 +26,14 @@ namespace Epicodemon.Models
     private bool _isComputer;
     private bool _isActive;
 
-    public Battle(int Mon_Id, string BattleName, int Level,int TotalHitpoints, int Hitpoints, int Attack, int Defense, int Specialattack, int Specialdefense, int Speed, int Move1pp = 0, int Move2pp = 0, int Move3pp = 0, int Move4pp = 0, bool IsPlayer = false, bool IsComputer = false, bool IsActive = false, int BattleId = 0)
+    public Battle(int Mon_Id, string BattleName, int Level,int TotalHitpoints, int LastHitpoints, int Hitpoints, int Attack, int Defense, int Specialattack, int Specialdefense, int Speed, int Move1pp = 0, int Move2pp = 0, int Move3pp = 0, int Move4pp = 0, bool IsPlayer = false, bool IsComputer = false, bool IsActive = false, int BattleId = 0)
     {
       _mon_Id = Mon_Id;
       _battleId = BattleId;
       _battleName = BattleName;
       _level = Level;
       _totalHitpoints = TotalHitpoints;
+      _lastHitpoints = LastHitpoints;
       _hitpoints = Hitpoints;
       _attack = Attack;
       _defense = Defense;
@@ -65,6 +67,10 @@ namespace Epicodemon.Models
     public int GetTotalHitpoints()
     {
       return _totalHitpoints;
+    }
+    public int GetLastHitpoints()
+    {
+      return _lastHitpoints;
     }
     public int GetHitpoints()
     {
@@ -132,6 +138,7 @@ namespace Epicodemon.Models
         bool nameEquality = this.GetBattleName().Equals(newBattle.GetBattleName());
         bool levelEquality = this.GetLevel().Equals(newBattle.GetLevel());
         bool totalHitpointsEquality = this.GetTotalHitpoints().Equals(newBattle.GetTotalHitpoints());
+        bool lastHitpointsEquality = this.GetLastHitpoints().Equals(newBattle.GetLastHitpoints());
         bool hitpointsEquality = this.GetHitpoints().Equals(newBattle.GetHitpoints());
         bool attackEquality = this.GetAttack().Equals(newBattle.GetAttack());
         bool defenseEquality = this.GetDefense().Equals(newBattle.GetDefense());
@@ -159,12 +166,13 @@ namespace Epicodemon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO battle (mon_id, name, level,totalhitpoints, hitpoints, attack, defense, specialattack, specialdefense, speed, move1pp, move2pp, move3pp, move4pp, isplayer, iscomputer, isactive) VALUES (@mon_Id, @battleName, @level,@totalhitpoints, @hitpoints, @attack, @defense, @specialattack, @specialdefense, @speed, @move1pp, @move2pp, @move3pp, @move4pp, @isPlayer, @isComputer, @isActive);";
+      cmd.CommandText = @"INSERT INTO battle (mon_id, name, level,totalhitpoints, lasthitpoints, hitpoints, attack, defense, specialattack, specialdefense, speed, move1pp, move2pp, move3pp, move4pp, isplayer, iscomputer, isactive) VALUES (@mon_Id, @battleName, @level,@totalhitpoints, @lasthitpoints, @hitpoints, @attack, @defense, @specialattack, @specialdefense, @speed, @move1pp, @move2pp, @move3pp, @move4pp, @isPlayer, @isComputer, @isActive);";
 
       cmd.Parameters.Add(new MySqlParameter("@mon_Id", _mon_Id));
       cmd.Parameters.Add(new MySqlParameter("@battleName", _battleName));
       cmd.Parameters.Add(new MySqlParameter("@level", _level));
       cmd.Parameters.Add(new MySqlParameter("@totalhitpoints", _totalHitpoints));
+      cmd.Parameters.Add(new MySqlParameter("@lasthitpoints", _lastHitpoints));
       cmd.Parameters.Add(new MySqlParameter("@hitpoints", _hitpoints));
       cmd.Parameters.Add(new MySqlParameter("@attack", _attack));
       cmd.Parameters.Add(new MySqlParameter("@defense", _defense));
@@ -202,21 +210,22 @@ namespace Epicodemon.Models
         string BattleName = rdr.GetString(2);
         int Level = rdr.GetInt32(3);
         int TotalHitpoints= rdr.GetInt32(4);
-        int Hitpoints = rdr.GetInt32(5);
-        int Attack = rdr.GetInt32(6);
-        int Defense = rdr.GetInt32(7);
-        int Specialattack = rdr.GetInt32(8);
-        int Specialdefense = rdr.GetInt32(9);
-        int Speed = rdr.GetInt32(10);
-        int Move1pp = rdr.GetInt32(11);
-        int Move2pp = rdr.GetInt32(12);
-        int Move3pp = rdr.GetInt32(13);
-        int Move4pp = rdr.GetInt32(14);
-        bool IsPlayer = rdr.GetBoolean(15);
-        bool IsComputer = rdr.GetBoolean(16);
-        bool IsActive = rdr.GetBoolean(17);
+        int LastHitpoints= rdr.GetInt32(5);
+        int Hitpoints = rdr.GetInt32(6);
+        int Attack = rdr.GetInt32(7);
+        int Defense = rdr.GetInt32(8);
+        int Specialattack = rdr.GetInt32(9);
+        int Specialdefense = rdr.GetInt32(10);
+        int Speed = rdr.GetInt32(11);
+        int Move1pp = rdr.GetInt32(12);
+        int Move2pp = rdr.GetInt32(13);
+        int Move3pp = rdr.GetInt32(14);
+        int Move4pp = rdr.GetInt32(15);
+        bool IsPlayer = rdr.GetBoolean(16);
+        bool IsComputer = rdr.GetBoolean(17);
+        bool IsActive = rdr.GetBoolean(18);
 
-        Battle newBattle = new Battle(Mon_Id, BattleName, Level,TotalHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
+        Battle newBattle = new Battle(Mon_Id, BattleName, Level,TotalHitpoints, LastHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
         allBattles.Add(newBattle);
       }
       conn.Close();
@@ -258,6 +267,7 @@ namespace Epicodemon.Models
       string BattleName = "";
       int Level = 0;
       int TotalHitpoints = 0;
+      int LastHitpoints = 0;
       int Hitpoints = 0;
       int Attack = 0;
       int Defense = 0;
@@ -279,21 +289,22 @@ namespace Epicodemon.Models
         BattleName = rdr.GetString(2);
         Level = rdr.GetInt32(3);
         TotalHitpoints = rdr.GetInt32(4);
-        Hitpoints = rdr.GetInt32(5);
-        Attack = rdr.GetInt32(6);
-        Defense = rdr.GetInt32(7);
-        Specialattack = rdr.GetInt32(8);
-        Specialdefense = rdr.GetInt32(9);
-        Speed = rdr.GetInt32(10);
-        Move1pp = rdr.GetInt32(11);
-        Move2pp = rdr.GetInt32(12);
-        Move3pp = rdr.GetInt32(13);
-        Move4pp = rdr.GetInt32(14);
-        IsPlayer = rdr.GetBoolean(15);
-        IsComputer = rdr.GetBoolean(16);
-        IsActive = rdr.GetBoolean(17);
+        LastHitpoints = rdr.GetInt32(5);
+        Hitpoints = rdr.GetInt32(6);
+        Attack = rdr.GetInt32(7);
+        Defense = rdr.GetInt32(8);
+        Specialattack = rdr.GetInt32(9);
+        Specialdefense = rdr.GetInt32(10);
+        Speed = rdr.GetInt32(11);
+        Move1pp = rdr.GetInt32(12);
+        Move2pp = rdr.GetInt32(13);
+        Move3pp = rdr.GetInt32(14);
+        Move4pp = rdr.GetInt32(15);
+        IsPlayer = rdr.GetBoolean(16);
+        IsComputer = rdr.GetBoolean(17);
+        IsActive = rdr.GetBoolean(18);
       }
-      Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
+      Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, LastHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
       conn.Close();
       if (conn != null)
       {
@@ -319,6 +330,7 @@ namespace Epicodemon.Models
       string BattleName = "";
       int Level = 0;
       int TotalHitpoints = 0;
+      int LastHitpoints= 0;
       int Hitpoints = 0;
       int Attack = 0;
       int Defense = 0;
@@ -340,21 +352,22 @@ namespace Epicodemon.Models
         BattleName = rdr.GetString(2);
         Level = rdr.GetInt32(3);
         TotalHitpoints = rdr.GetInt32(4);
-        Hitpoints = rdr.GetInt32(5);
-        Attack = rdr.GetInt32(6);
-        Defense = rdr.GetInt32(7);
-        Specialattack = rdr.GetInt32(8);
-        Specialdefense = rdr.GetInt32(9);
-        Speed = rdr.GetInt32(10);
-        Move1pp = rdr.GetInt32(11);
-        Move2pp = rdr.GetInt32(12);
-        Move3pp = rdr.GetInt32(13);
-        Move4pp = rdr.GetInt32(14);
-        IsPlayer = rdr.GetBoolean(15);
-        IsComputer = rdr.GetBoolean(16);
-        IsActive = rdr.GetBoolean(17);
+        LastHitpoints = rdr.GetInt32(5);
+        Hitpoints = rdr.GetInt32(6);
+        Attack = rdr.GetInt32(7);
+        Defense = rdr.GetInt32(8);
+        Specialattack = rdr.GetInt32(9);
+        Specialdefense = rdr.GetInt32(10);
+        Speed = rdr.GetInt32(11);
+        Move1pp = rdr.GetInt32(12);
+        Move2pp = rdr.GetInt32(13);
+        Move3pp = rdr.GetInt32(14);
+        Move4pp = rdr.GetInt32(15);
+        IsPlayer = rdr.GetBoolean(16);
+        IsComputer = rdr.GetBoolean(17);
+        IsActive = rdr.GetBoolean(18);
       }
-      Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
+      Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, LastHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
       conn.Close();
       if (conn != null)
       {
@@ -380,6 +393,7 @@ namespace Epicodemon.Models
       string BattleName = "";
       int Level = 0;
       int TotalHitpoints = 0;
+      int LastHitpoints = 0;
       int Hitpoints = 0;
       int Attack = 0;
       int Defense = 0;
@@ -401,21 +415,22 @@ namespace Epicodemon.Models
         BattleName = rdr.GetString(2);
         Level = rdr.GetInt32(3);
         TotalHitpoints = rdr.GetInt32(4);
-        Hitpoints = rdr.GetInt32(5);
-        Attack = rdr.GetInt32(6);
-        Defense = rdr.GetInt32(7);
-        Specialattack = rdr.GetInt32(8);
-        Specialdefense = rdr.GetInt32(9);
-        Speed = rdr.GetInt32(10);
-        Move1pp = rdr.GetInt32(11);
-        Move2pp = rdr.GetInt32(12);
-        Move3pp = rdr.GetInt32(13);
-        Move4pp = rdr.GetInt32(14);
-        IsPlayer = rdr.GetBoolean(15);
-        IsComputer = rdr.GetBoolean(16);
-        IsActive = rdr.GetBoolean(17);
+        LastHitpoints = rdr.GetInt32(5);
+        Hitpoints = rdr.GetInt32(6);
+        Attack = rdr.GetInt32(7);
+        Defense = rdr.GetInt32(8);
+        Specialattack = rdr.GetInt32(9);
+        Specialdefense = rdr.GetInt32(10);
+        Speed = rdr.GetInt32(11);
+        Move1pp = rdr.GetInt32(12);
+        Move2pp = rdr.GetInt32(13);
+        Move3pp = rdr.GetInt32(14);
+        Move4pp = rdr.GetInt32(15);
+        IsPlayer = rdr.GetBoolean(16);
+        IsComputer = rdr.GetBoolean(17);
+        IsActive = rdr.GetBoolean(18);
       }
-      Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
+      Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, LastHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
       conn.Close();
       if (conn != null)
       {
@@ -430,18 +445,19 @@ namespace Epicodemon.Models
       int rounded = (int)percent;
       return rounded;
     }
-    public void Edit(int newMon_Id, string newBattleName, int newLevel, int newTotalHitpoints, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed, int newMove1pp, int newMove2pp, int newMove3pp, int newMove4pp, bool newIsPlayer, bool newIsComputer, bool newIsActive)
+    public void Edit(int newMon_Id, string newBattleName, int newLevel, int newTotalHitpoints, int newLastHitpoints, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed, int newMove1pp, int newMove2pp, int newMove3pp, int newMove4pp, bool newIsPlayer, bool newIsComputer, bool newIsActive)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE battle SET mon_id = @newMon_Id name = @newBattleName, level = @newLevel, totalhitpoints = @newTotalHitpoints, hitpoints = @newHitpoints, attack = @newAttack, defense = @newDefense, specialattack = @newSpecialattack, specialdefense = @newSpecialdefense, speed = @newSpeed, move1pp = @newMove1pp, move2pp = @newMove2pp, move3pp = @newMove4pp, isplayer = @newIsPlayer, iscomputer = @newIsComputer, isactive = @newIsActive WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE battle SET mon_id = @newMon_Id name = @newBattleName, level = @newLevel, totalhitpoints = @newTotalHitpoints, lasthitpoints = @newLastHitpoints, hitpoints = @newHitpoints, attack = @newAttack, defense = @newDefense, specialattack = @newSpecialattack, specialdefense = @newSpecialdefense, speed = @newSpeed, move1pp = @newMove1pp, move2pp = @newMove2pp, move3pp = @newMove4pp, isplayer = @newIsPlayer, iscomputer = @newIsComputer, isactive = @newIsActive WHERE id = @searchId;";
 
       cmd.Parameters.Add(new MySqlParameter("@searchId", _battleId));
       cmd.Parameters.Add(new MySqlParameter("@newMon_Id", newMon_Id));
       cmd.Parameters.Add(new MySqlParameter("@newBattleName", newBattleName));
       cmd.Parameters.Add(new MySqlParameter("@newLevel", newLevel));
       cmd.Parameters.Add(new MySqlParameter("@newTotalHitpoints", newTotalHitpoints));
+      cmd.Parameters.Add(new MySqlParameter("@newLastHitpoints", newLastHitpoints));
       cmd.Parameters.Add(new MySqlParameter("@newHitpoints", newHitpoints));
       cmd.Parameters.Add(new MySqlParameter("@newAttack", newAttack));
       cmd.Parameters.Add(new MySqlParameter("@newDefense", newDefense));
@@ -461,6 +477,7 @@ namespace Epicodemon.Models
       _battleName = newBattleName;
       _level = newLevel;
       _totalHitpoints = newTotalHitpoints;
+      _lastHitpoints = newLastHitpoints;
       _hitpoints = newHitpoints;
       _attack = newAttack;
       _defense = newDefense;
@@ -669,21 +686,22 @@ namespace Epicodemon.Models
         string BattleName = rdr.GetString(2);
         int Level = rdr.GetInt32(3);
         int TotalHitpoints = rdr.GetInt32(4);
-        int Hitpoints = rdr.GetInt32(5);
-        int Attack = rdr.GetInt32(6);
-        int Defense = rdr.GetInt32(7);
-        int Specialattack = rdr.GetInt32(8);
-        int Specialdefense = rdr.GetInt32(9);
-        int Speed = rdr.GetInt32(10);
-        int Move1pp = rdr.GetInt32(11);
-        int Move2pp = rdr.GetInt32(12);
-        int Move3pp = rdr.GetInt32(13);
-        int Move4pp = rdr.GetInt32(14);
-        bool IsPlayer = rdr.GetBoolean(15);
-        bool IsComputer = rdr.GetBoolean(16);
-        bool IsActive = rdr.GetBoolean(17);
+        int LastHitpoints = rdr.GetInt32(5);
+        int Hitpoints = rdr.GetInt32(6);
+        int Attack = rdr.GetInt32(7);
+        int Defense = rdr.GetInt32(8);
+        int Specialattack = rdr.GetInt32(9);
+        int Specialdefense = rdr.GetInt32(10);
+        int Speed = rdr.GetInt32(11);
+        int Move1pp = rdr.GetInt32(12);
+        int Move2pp = rdr.GetInt32(13);
+        int Move3pp = rdr.GetInt32(14);
+        int Move4pp = rdr.GetInt32(15);
+        bool IsPlayer = rdr.GetBoolean(16);
+        bool IsComputer = rdr.GetBoolean(17);
+        bool IsActive = rdr.GetBoolean(18);
 
-        Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
+        Battle newBattle = new Battle(Mon_Id, BattleName, Level, TotalHitpoints, LastHitpoints, Hitpoints, Attack, Defense, Specialattack, Specialdefense, Speed, Move1pp, Move2pp, Move3pp, Move4pp, IsPlayer, IsComputer, IsActive, BattleId);
         twoBattles.Add(newBattle);
       }
       conn.Close();

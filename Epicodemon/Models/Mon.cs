@@ -327,6 +327,7 @@ namespace Epicodemon.Models
       string monName = _monName;
       int level = _level;
       int trueTotalHP = this.GetTrueHP();
+      int trueLastHP = this.GetTrueHP();
       int trueHP = this.GetTrueHP();
       int trueAttack = this.GetTrueStat(_attack);
       int trueDefense = this.GetTrueStat(_defense);
@@ -334,7 +335,7 @@ namespace Epicodemon.Models
       int trueSpecialdefense = this.GetTrueStat(_specialdefense);
       int trueSpeed = this.GetTrueStat(_speed);
 
-      return new Battle(mon_Id, monName, level, trueTotalHP, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
+      return new Battle(mon_Id, monName, level, trueTotalHP, trueLastHP, trueHP, trueAttack, trueDefense, trueSpecialattack, trueSpecialdefense, trueSpeed);
     }
     public void AddMonType(MonType newMonType)
     {

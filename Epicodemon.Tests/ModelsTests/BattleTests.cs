@@ -99,7 +99,7 @@ namespace Epicodemon.Tests
     [TestMethod]
     public void BaseDamage()
     {
-      //Assert
+      //Arrange
       Move newMove = new Move("thunderbolt", 95, "special", "zappy boi", "par 10", 15);
       Mon attackingMon = new Mon("Raichu-Alola", 50, 60, 85, 50, 95, 85, 110);
       attackingMon.Save();
