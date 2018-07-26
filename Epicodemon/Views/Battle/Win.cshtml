@@ -36,17 +36,17 @@
         </td>
         <td>
           <div class="enemySprite">
-            <img src="../img/@Model["computer"].GetBattleName()Pic.jpg" alt="" width="500px">
+            <img src="../img/@Model["computer"].GetBattleName()Pic.png" alt="" width="500px">
           </div>
           <div class="rivalSprite initial-hidden">
-            <img src="../img/RandyRival.jpg" alt="" width="250px">
+            <img src="../img/RandyRival.png" alt="" width="250px">
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="fighterSprite">
-            <img src="../img/@Model["player"].GetBattleName()Pic.jpg" alt="" width="300px">
+            <img src="../img/@Model["player"].GetBattleName()Pic.png" alt="" width="300px">
           </div>
         </td>
         <td>
@@ -65,11 +65,11 @@
 
     </table>
     <div class="menu">
-      <p class="winner">@Model["computer"].GetBattleName() Has Fainted!</p>
-      <div class="rival well">
-        <p class="initial-hidden">HMPH, everyone is cheating but me!</p>
-        <p class="initial-hidden">Smell Ya Later!</p>
-        <a href="/"><button type="click" class="endButton initial-hidden">Play Again!</button></a>
+      <div class="well">
+        <span class="winner">@Model["computer"].GetBattleName() Has Fainted!</span>
+        <span class="initial-hidden rival">HMPH, everyone is cheating but me!</span>
+        <span class="initial-hidden rival">Smell Ya Later!</span>
+        <span class="initial-hidden rival"><a href="/"><button type="click" class="endButton">Play Again!</button></a></span>
       </div>
     </div>
   </div>

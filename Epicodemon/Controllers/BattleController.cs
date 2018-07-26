@@ -47,9 +47,13 @@ namespace Epicodemon.Controllers
       model.Add("computer", computer);
       model.Add("playerMoves", playerMoves);
       model.Add("turnMessages", turnMessages);
-      if(player.GetHitpoints() == 0 || computer.GetHitpoints() == 0)
+      if(player.GetHitpoints() == 0)
       {
-        return RedirectToAction("End");
+        return RedirectToAction("Lose");
+      }
+      else if (computer.GetHitpoints() == 0)
+      {
+        return RedirectToAction("Win");
       }
       else
       {
@@ -121,23 +125,78 @@ namespace Epicodemon.Controllers
 
       return View(model);
     }
-    [HttpGet("/Battle/Combat/Computer2/{id}")]
-    public ActionResult ComputerSecond(int id)
+    [HttpGet("/Battle/Combat/Computer/{id}")]
+    public ActionResult ComputerFirst(int id)
     {
-
+      Battle player = Battle.FindPlayer();
       Battle computer = Battle.FindComputer();
       List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
       Random move = new Random();
       Move computerMove = computerMoves[move.Next(computerMoves.Count)];
       Message.DeleteAll();
-      if(computer.GetHitpoints() == 0)
+      if(player.GetHitpoints() == 0)
       {
-        return RedirectToAction("Win");
+        return RedirectToAction("Lose");
+      }
+      else
+      {
+        Battle.ComputerSequence1(id, computerMove);
+        player = Battle.FindPlayer();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Message newMessage = new Message("<a href='/Battle/Combat/Player2/" + id + "'>Continue</a>");
+        newMessage.Save();
+        List<Message> turnMessages = Message.GetAllMessages();
+
+
+        model.Add("player", player);
+        model.Add("computer", computer);
+        model.Add("turnMessages", turnMessages);
+        model.Add("computerMove", computerMove);
+        return View(model);
+      }
+    }
+    [HttpGet("/Battle/Combat/Player2/{id}")]
+    public ActionResult PlayerSecond(int id)
+    {
+      Message.DeleteAll();
+      Battle.PlayerSequence2(id);
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
+      Message newMessage = new Message("<a href='/Battle/Combat/'>Continue</a>");
+      newMessage.Save();
+      List<Message> turnMessages = Message.GetAllMessages();
+
+      Move usedMove = Move.Find(id);
+
+      model.Add("player", player);
+      model.Add("computer", computer);
+      model.Add("playerMoves", playerMoves);
+      model.Add("turnMessages", turnMessages);
+      model.Add("usedMove", usedMove);
+
+      return View(model);
+    }
+
+    [HttpGet("/Battle/Combat/Computer2/{id}")]
+    public ActionResult ComputerSecond(int id)
+    {
+
+      Battle computer = Battle.FindComputer();
+      Battle player = Battle.FindPlayer();
+      List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
+      Random move = new Random();
+      Move computerMove = computerMoves[move.Next(computerMoves.Count)];
+      Message.DeleteAll();
+      if(player.GetHitpoints() == 0)
+      {
+        return RedirectToAction("Lose");
       }
       else
       {
         Battle.ComputerSequence2(id, computerMove);
-        Battle player = Battle.FindPlayer();
+        player = Battle.FindPlayer();
         Dictionary<string, object> model = new Dictionary<string, object>();
         List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
         Message newMessage = new Message("<a href='/Battle/Combat'>Continue</a>");
@@ -153,23 +212,25 @@ namespace Epicodemon.Controllers
         return View(model);
       }
     }
-    // [HttpPost("/Battle/Combat/{id}")]
-    // public ActionResult TurnSequence(int id)
-    // {
-    //   Battle.Sequence(id);
-    //   Battle player = Battle.FindPlayer();
-    //   Battle computer = Battle.FindComputer();
-    //   if(player.GetHitpoints() == 0 || computer.GetHitpoints() == 0)
-    //   {
-    //     return RedirectToAction("End");
-    //   }
-    //   else
-    //   {
-    //     return RedirectToAction("Combat");
-    //   }
-    // }
+
     [HttpGet("/Battle/Win")]
     public ActionResult Win()
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
+      List<Message> turnMessages = Message.GetAllMessages();
+
+      model.Add("player", player);
+      model.Add("computer", computer);
+      model.Add("playerMoves", playerMoves);
+      model.Add("turnMessages", turnMessages);
+
+      return View(model);
+    }
+    [HttpGet("/Battle/Lose")]
+    public ActionResult Lose()
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
       Battle player = Battle.FindPlayer();

@@ -6,11 +6,12 @@
 <head>
   <meta charset="utf-8">
 
-  <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="~/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="../css/styles.css" rel="stylesheet" type="text/css">
+  <link href="../css/animate.css" rel="stylesheet" type="text/css">
 
-  <script src="~/js/jquery-3.3.1.js"></script>
-  <script src="~/js/scripts.js"></script>
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/scripts5.js"></script>
 
   <title>Epicodemon</title>
 
@@ -25,7 +26,7 @@
             <div class="well">
               <h3>@Model["computer"].GetBattleName()</h3>
               <h3>Level: @Model["computer"].GetLevel()</h3>
-              <div class="progress">
+              <div class="progress initial-hidden">
                 <div class="progress-bar" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
                 </div>
               </div>
@@ -35,14 +36,17 @@
         </td>
         <td>
           <div class="enemySprite">
-            <img src="~/img/@Model["computer"].GetBattleName()Pic.png" alt="" width="500px">
+            <img src="../img/@Model["computer"].GetBattleName()Pic.png" alt="" width="500px">
+          </div>
+          <div class="rivalSprite initial-hidden">
+            <img src="../img/RandyRival.png" alt="" width="250px">
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="fighterSprite">
-            <img src="~/img/@Model["player"].GetBattleName()Pic.png" alt="" width="300px">
+            <img src="../img/@Model["player"].GetBattleName()Pic.png" alt="" width="300px">
           </div>
         </td>
         <td>
@@ -62,33 +66,12 @@
     </table>
     <div class="menu">
       <div class="well">
-        <form id="fightSubmit">
-          <button type="click" class="menuButton">Fight</button>
-          <!-- <button type="button" class="menuButton">Switch</button> -->
-        </form>
-
+        <span class="loser">@Model["player"].GetBattleName() Has Fainted!</span>
+        <span class="initial-hidden rival">Hah! Once a loser, always a loser!</span>
+        <span class="initial-hidden rival">Smell Ya Later!</span>
+        <span class="initial-hidden rival"><a href="/"><button type="click" class="endButton">Play Again!</button></a></span>
       </div>
     </div>
-    <div class="attackBar">
-      <div class="well row">
-        @foreach(var move in Model["playerMoves"])
-        {
-          <form class="attack col-md-6" action="/Battle/Combat/@move.GetMoveId()" method="post">
-            <button type="submit" class="attack">@move.GetMoveName()</button>
-          </form>
-        }
-      </div>
-    </div>
-    <!-- <div class="msgbox">
-      <div class="well" id="text">
-        @for(var index = 0; index < @Model["turnMessages"].Count; index++)
-        {
-          <p class="initial-hidden clickable"> @Model["turnMessages"][@index].GetMessageName()</p>
-        }
-      </div>
-
-    </div> -->
-
   </div>
 </body>
 </html>

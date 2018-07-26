@@ -124,11 +124,15 @@ height: 100px;
   border-width: thin;
   font-size: 50px;
 }
-.player-move1, .player-move3
+.winner, .loser, .rival
 {
   font-size: 50px;
 }
-.player-first, .player-second, .computer-first, .computer-second
+.player-first, .player-second, .computer-first, .computer-second, .player-move5
 {
   font-size:50px;
+}
+.player-move1, .player-move3
+{
+  font-size: 50px;
 }

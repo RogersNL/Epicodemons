@@ -3,9 +3,9 @@ $(document).ready(function(){
     $(".enemySprite").addClass('animated hinge').one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
     function() {
       $(".enemySprite").hide();
-      // $(".winner").hide();
+      $(".winner").hide();
       $(".rivalSprite").fadeIn();
-      $("p.rival").first().show();
+      $(".rival").first().show();
     });
   });
   $(".rival").click(function() {
