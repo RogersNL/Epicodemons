@@ -28,7 +28,7 @@
               <h3>Level: @Model["computer"].GetLevel()</h3>
               <div class="progress">
 
-                <div class="progress-bar enemy-bar initial-hidden" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
+                <div class="progress-bar enemy-bar" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
                 </div>
               </div>
               <h3>HP: @Model["computer"].GetHitpoints()/@Model["computer"].GetTotalHitpoints()</h3>
@@ -37,14 +37,14 @@
         </td>
         <td>
           <div class="enemySprite">
-            <img src="~/img/@Model["computer"].GetBattleName()Pic.jpg" alt="" width="500px">
+            <img src="~/img/@Model["computer"].GetBattleName()Pic.png" alt="" width="500px">
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="fighterSprite">
-            <img src="~/img/@Model["player"].GetBattleName()Pic.jpg" alt="" width="300px">
+            <img src="~/img/@Model["player"].GetBattleName()Pic.png" alt="" width="300px">
           </div>
         </td>
         <td>
@@ -66,10 +66,10 @@
     </table>
     <div class="menu">
       <div class="well">
-        <p class="player-move3 animated bounceIn">@Model["computer"].GetBattleName() used @Model["computerMove"].GetMoveName()</p>
+        <span class="player-move3 animated bounceIn">@Model["computer"].GetBattleName() used @Model["computerMove"].GetMoveName()</span>
         @foreach(var message in Model["turnMessages"])
         {
-          <p class="initial-hidden computer-second">@Html.Raw(@message.GetMessageName())</p>
+          <span class="initial-hidden computer-second">@Html.Raw(@message.GetMessageName())</span>
         }
 
       </div>

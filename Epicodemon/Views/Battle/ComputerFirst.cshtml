@@ -8,9 +8,10 @@
 
   <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="~/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="~/css/animate.css" rel="stylesheet" type="text/css">
 
   <script src="~/js/jquery-3.3.1.js"></script>
-  <script src="~/js/scripts.js"></script>
+  <script src="~/js/scripts1.js"></script>
 
   <title>Epicodemon</title>
 
@@ -26,7 +27,8 @@
               <h3>@Model["computer"].GetBattleName()</h3>
               <h3>Level: @Model["computer"].GetLevel()</h3>
               <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
+
+                <div class="progress-bar enemy-bar" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
                 </div>
               </div>
               <h3>HP: @Model["computer"].GetHitpoints()/@Model["computer"].GetTotalHitpoints()</h3>
@@ -51,7 +53,9 @@
               <h3>@Model["player"].GetBattleName()</h3>
               <h3>Level: @Model["player"].GetLevel()</h3>
               <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width:@Model["player"].GetHitpointsPercent()%">
+                <div class="progress-bar player-bar-initial" role="progressbar" style="width:100%">
+                </div>
+                <div class="progress-bar player-bar initial-hidden" role="progressbar" style="width:@Model["player"].GetHitpointsPercent()%">
                 </div>
               </div>
               <h3>HP: @Model["player"].GetHitpoints()/@Model["player"].GetTotalHitpoints()</h3>
@@ -62,32 +66,14 @@
     </table>
     <div class="menu">
       <div class="well">
-        <form id="fightSubmit">
-          <button type="click" class="menuButton">Fight</button>
-          <!-- <button type="button" class="menuButton">Switch</button> -->
-        </form>
+        <span class="player-move5 animated bounceIn">@Model["computer"].GetBattleName() used @Model["computerMove"].GetMoveName()</span>
+        @foreach(var message in Model["turnMessages"])
+        {
+          <span class="initial-hidden computer-first">@Html.Raw(@message.GetMessageName())</span>
+        }
 
       </div>
     </div>
-    <div class="attackBar">
-      <div class="well row">
-        @foreach(var move in Model["playerMoves"])
-        {
-          <form class="attack col-md-6" action="/Battle/Combat/@move.GetMoveId()" method="post">
-            <button type="submit" class="attack">@move.GetMoveName()</button>
-          </form>
-        }
-      </div>
-    </div>
-    <!-- <div class="msgbox">
-      <div class="well" id="text">
-        @for(var index = 0; index < @Model["turnMessages"].Count; index++)
-        {
-          <p class="initial-hidden clickable"> @Model["turnMessages"][@index].GetMessageName()</p>
-        }
-      </div>
-
-    </div> -->
 
   </div>
 </body>
