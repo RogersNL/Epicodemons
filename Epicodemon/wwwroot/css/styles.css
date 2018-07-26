@@ -18,11 +18,11 @@
 {
   color: lightgreen;
 }
-.well
+/* .well
 {
   width: 250px;
   background-color: darkgreen;
-}
+} */
 .form-control
 {
   width: 300px;
@@ -31,11 +31,9 @@
 .enemyStatus
 {
   float: left;
-  position: absolute;
   width: 500px;
   margin: 15px;
 }
-
 .enemySprite
 {
   float: right;
@@ -44,12 +42,12 @@
 .fighterSprite
 {
   float: left;
-  margin-top: 600px;
+
 }
 
 .fighterStatus
 {
-  margin-top: 220px;
+  margin-top: 150px;
   float: right;
   width: 500px;
 }
@@ -59,6 +57,7 @@
   width: 300px;
   height: 100px;
   border-width: thin;
+  font-size:50px;
 }
 
 .attackBar
@@ -72,8 +71,8 @@
 .menu
 {
   margin-top: 20px;
-  float: right;
-  width: 650px;
+  width: 1000px;
+  text-align: center;
 }
 
 .menuButton
@@ -81,6 +80,7 @@
   width: 300px;
   height: 150px;
   border-width: thin;
+  font-size: 60px;
 }
 
 .Epicodex-pic
@@ -88,13 +88,22 @@
 height: 100px;
 }
 
-.msgbox
-{
-  /*position: absolute;*/
-  margin-top: 700px;
-}
-
 .initial-hidden
 {
   display: none;
+}
+.endButton
+{
+  width: 300px;
+  height: 150px;
+  border-width: thin;
+  font-size: 50px;
+}
+.player-move1, .player-move3
+{
+  font-size: 50px;
+}
+.player-first, .player-second, .computer-first, .computer-second
+{
+  font-size:50px;
 }

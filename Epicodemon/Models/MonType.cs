@@ -342,6 +342,16 @@ namespace Epicodemon.Models
         double newMultiplier = multiplier[typeCompare[attackType.GetMonTypeName()]];
         multiply = multiply * newMultiplier;
       }
+      if(multiply > 1)
+      {
+        Message newMessage = new Message("<span class='animated jackInTheBox'>It's Super Effective!</span>");
+        newMessage.Save();
+      }
+      else if(multiply < 1)
+      {
+        Message newMessage = new Message("<span class='animated slideInDown'>It's Not Very Effective...</span>");
+        newMessage.Save();
+      }
       return multiply;
     }
     public static double STABMultiplier(Mon attackingMon, Move attackingMove)

@@ -756,6 +756,89 @@ namespace Epicodemon.Models
       }
       return 0;
     }
+    public static int Damage(Move usedMove, Battle attacker, Mon attackerMon, Mon defenderMon)
+    {
+      double damage = (double)Battle.BaseDamage(attacker.GetBattleId(), usedMove) * (double)Battle.CritMultiplier() * (double)MonType.TypeMultiplier(defenderMon, usedMove) * (double)MonType.STABMultiplier(attackerMon, usedMove) * (double)usedMove.AccuracyMultiplier();
+      return (int)damage;
+    }
+    public static void PlayerSequence1(int id)
+    {
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      Mon playerMon = Mon.Find(player.GetMon_Id());
+      Mon computerMon = Mon.Find(computer.GetMon_Id());
+      Move playerMove = Move.Find(id);
+
+      double newHP = (double)computer.GetHitpoints() - (double)Battle.Damage(playerMove, player, playerMon, computerMon);
+      int roundHP = (int)newHP;
+      if(roundHP > 0)
+      {
+        computer.SetNewHP(roundHP);
+      }
+      else
+      {
+        computer.SetNewHP(0);
+      }
+    }
+    public static void ComputerSequence1(int id, Move computerMove)
+    {
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      Mon playerMon = Mon.Find(player.GetMon_Id());
+      Mon computerMon = Mon.Find(computer.GetMon_Id());
+      Move playerMove = Move.Find(id);
+
+      double otherHP = (double)player.GetHitpoints() - (double)Battle.Damage(computerMove, computer, computerMon, playerMon);
+      int roundOtherHP = (int)otherHP;
+
+      if(roundOtherHP > 0)
+      {
+        player.SetNewHP(roundOtherHP);
+      }
+      else
+      {
+        player.SetNewHP(0);
+      }
+    }
+    public static void PlayerSequence2(int id)
+    {
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      Mon playerMon = Mon.Find(player.GetMon_Id());
+      Mon computerMon = Mon.Find(computer.GetMon_Id());
+      Move playerMove = Move.Find(id);
+
+      double newHP = (double)computer.GetHitpoints() - (double)Battle.Damage(playerMove, player, playerMon, computerMon);
+      int roundHP = (int)newHP;
+      if(roundHP > 0)
+      {
+        computer.SetNewHP(roundHP);
+      }
+      else
+      {
+        computer.SetNewHP(0);
+      }
+    }
+    public static void ComputerSequence2(int id, Move computerMove)
+    {
+      Battle player = Battle.FindPlayer();
+      Battle computer = Battle.FindComputer();
+      Mon playerMon = Mon.Find(player.GetMon_Id());
+      Mon computerMon = Mon.Find(computer.GetMon_Id());
+      Move playerMove = Move.Find(id);
+
+      double otherHP = (double)player.GetHitpoints() - (double)Battle.Damage(computerMove, computer, computerMon, playerMon);
+      int roundOtherHP = (int)otherHP;
+
+      if(roundOtherHP > 0)
+      {
+        player.SetNewHP(roundOtherHP);
+      }
+      else
+      {
+        player.SetNewHP(0);
+      }
+    }
     public static void Sequence(int id)
     {
       Battle player = Battle.FindPlayer();
@@ -828,7 +911,7 @@ namespace Epicodemon.Models
       Random rand = new Random();
       if(rand.Next(32) == 1)
       {
-        Message newMessage = new Message("It's a Critical Hit!");
+        Message newMessage = new Message("<span class='animated wobble'>It's a Critical Hit!</span>");
         newMessage.Save();
         return 1.5;
       }

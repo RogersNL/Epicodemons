@@ -327,6 +327,9 @@ namespace Epicodemon.Models
       Random rand = new Random();
       if(rand.Next(101) >= _accuracy)
       {
+        Message.DeleteAll();
+        Message newMessage = new Message("<span class='animated fadeInDown'>But The Attack Missed!</span>");
+        newMessage.Save();
         return 0;
       }
       else
