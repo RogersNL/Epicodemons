@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 26, 2018 at 09:23 PM
+-- Generation Time: Jul 26, 2018 at 11:42 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -34,6 +34,7 @@ CREATE TABLE `battle` (
   `name` varchar(255) NOT NULL,
   `level` int(11) NOT NULL,
   `totalhitpoints` int(11) NOT NULL,
+  `lasthitpoints` int(11) NOT NULL,
   `hitpoints` int(11) NOT NULL,
   `attack` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
@@ -53,9 +54,9 @@ CREATE TABLE `battle` (
 -- Dumping data for table `battle`
 --
 
-INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
-(469, 3, 'Seasharp', 5, 21, 21, 13, 11, 11, 11, 10, 0, 0, 0, 0, 1, 0, 1),
-(470, 1, 'Quombat', 5, 20, 20, 11, 10, 13, 12, 13, 0, 0, 0, 0, 0, 1, 1);
+INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `lasthitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
+(494, 7, 'Fatalerror', 50, 146, 146, 119, 140, 115, 140, 115, 119, 0, 0, 0, 0, 1, 0, 1),
+(495, 4, 'Epicodachu', 50, 110, 16, 0, 75, 60, 70, 70, 110, 0, 0, 0, 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -67,6 +68,14 @@ CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `message`) VALUES
+(369, '<span class=\"animated wobble\">A beam of pure lightning fired at the opponent.</span>'),
+(370, '<a href=\'/Battle/Combat\'>Continue</a>');
 
 -- --------------------------------------------------------
 
@@ -91,9 +100,19 @@ CREATE TABLE `mons` (
 --
 
 INSERT INTO `mons` (`id`, `name`, `level`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`) VALUES
-(1, 'Quombat', 5, 40, 45, 35, 65, 55, 70),
-(2, 'Hambirder', 5, 45, 60, 40, 70, 50, 45),
-(3, 'Seasharp', 5, 50, 70, 50, 50, 50, 40);
+(1, 'Quombat', 50, 80, 82, 83, 100, 100, 80),
+(2, 'Hambirder', 50, 78, 84, 78, 109, 85, 100),
+(3, 'Seasharp', 50, 95, 125, 79, 60, 100, 81),
+(4, 'Epicodachu', 50, 35, 55, 40, 50, 50, 90),
+(5, 'Masterbranch', 50, 100, 150, 140, 100, 90, 90),
+(6, 'Heatmink', 50, 85, 105, 55, 85, 50, 115),
+(7, 'Fatalerror', 50, 71, 120, 95, 120, 95, 99),
+(8, 'Marsupyoung', 50, 60, 62, 63, 80, 80, 60),
+(9, 'MyBeeQL', 50, 65, 150, 40, 15, 80, 145),
+(10, 'Rockasaurus', 50, 85, 60, 65, 135, 105, 100),
+(11, 'Overclock', 50, 50, 92, 108, 92, 108, 35),
+(12, 'Swampdonkey', 50, 65, 100, 70, 80, 80, 105),
+(13, 'Thundeer', 50, 80, 100, 70, 60, 70, 95);
 
 -- --------------------------------------------------------
 
@@ -127,7 +146,26 @@ INSERT INTO `mons_types` (`id`, `mons_id`, `types_id`) VALUES
 (1, 1, 14),
 (2, 2, 17),
 (3, 2, 9),
-(4, 3, 16);
+(4, 3, 16),
+(5, 4, 15),
+(6, 4, 3),
+(7, 5, 17),
+(8, 5, 14),
+(9, 6, 2),
+(10, 6, 13),
+(11, 7, 7),
+(12, 7, 4),
+(13, 8, 14),
+(14, 9, 7),
+(15, 9, 9),
+(16, 10, 6),
+(17, 10, 17),
+(18, 11, 17),
+(19, 11, 2),
+(20, 12, 11),
+(21, 12, 1),
+(22, 13, 15),
+(23, 13, 18);
 
 -- --------------------------------------------------------
 
@@ -151,29 +189,30 @@ CREATE TABLE `moves` (
 --
 
 INSERT INTO `moves` (`id`, `name`, `basepower`, `attackstyle`, `description`, `secondaryeffect`, `powerpoints`, `accuracy`) VALUES
-(1, 'Static Void', 210, 'special', '<span class=\"pulse\">NOTHING escapes the Static Void.</span>', 'par 50', 5, 100),
+(1, 'Static Void', 210, 'special', '<span class=\"animated pulse\">NOTHING escapes the Static Void.</span>', 'par 50', 5, 100),
 (2, 'Attackle', 35, 'physical', '<span class=\"animated flash\">The Epicodemon rushed the opponent.</span>', 'none', 35, 100),
-(3, 'Scrape', 35, 'physical', '<span class=\"swing\">The Epicodemon attacked with its claws.</span>', 'none', 35, 100),
-(4, 'Poke', 35, 'physical', '<span class=\"swing\">The Epicodemon poked opponent.</span>', 'none', 35, 95),
+(3, 'Scrape', 35, 'physical', '<span class=\"animated swing\">The Epicodemon attacked with its claws.</span>', 'none', 35, 100),
+(4, 'Poke', 35, 'physical', '<span class=\"animated swing\">The Epicodemon poked opponent.</span>', 'none', 35, 95),
 (5, 'Hyper Splash', 0, 'special', '<span class=\"animated flash\">Its better then Splash!!!!</span>', 'rcg', 5, 0),
 (6, 'Shred', 80, 'special', '<span class=\"animated flash\">Rockasaurus played a sick power riff!</span>', 'flc 30', 20, 95),
 (7, 'Act', 40, 'physical', '<span class=\"animated flash\">Seasharp acted on its opponents openings.</span>', 'par 70', 10, 100),
 (8, 'Arrange', 0, 'boost', '<span class=\"animated flash\">Seasharp prepared itself.</span>', 'bst att spd', 20, 100),
-(9, 'Assert', 100, 'physical', '<span class=\"wobble\">Seasharp asserted its dominance!!! </span>', 'none', 10, 80),
+(9, 'Assert', 100, 'physical', '<span class=\"animated wobble\">Seasharp asserted its dominance!!! </span>', 'none', 10, 80),
 (10, 'Test Patty', 120, 'physical', '<span class=\"animated flash\">Hambirder all out charged its opponent.</span>', 'none', 15, 50),
 (11, 'Cadence', 35, 'physical', '<span class=\"animated flash\">Quambat moved rhythmically boosting defense.</span>', 'bst def', 10, 100),
-(12, 'IceThrower', 95, 'special', '<span class=\"wobble\">A flamethrower of ice shot at the opponent.</span>', 'none', 15, 100),
-(13, 'ThunderBeam', 95, 'special', '<span class=\"wobble\">A beam of pure lightning fired at the opponent.</span>', 'none', 15, 100),
+(12, 'Ice Thrower', 95, 'special', '<span class=\"animated wobble\">A flamethrower of ice shot at the opponent.</span>', 'none', 15, 100),
+(13, 'Thunder Beam', 95, 'special', '<span class=\"animated wobble\">A beam of pure lightning fired at the opponent.</span>', 'none', 15, 100),
 (14, 'Heat Release', 120, 'special', '<span class=\"animated flash\">Heatmink Dispelled its stored Heat.</span>', 'none', 5, 90),
-(15, 'MergeError', 135, 'special', '<span class=\"flipinX\">A FATAL mistake was made!!!!</span>', 'none', 10, 85),
-(16, 'BugSwarm', 90, 'physical', '<span class=\"zoomin\">A throng of Bugs swarms the opponent.</span>', 'none', 10, 500),
+(15, 'Merge Error', 135, 'special', '<span class=\"animated flipinX\">A FATAL mistake was made!!!!</span>', 'none', 10, 85),
+(16, 'Bug Swarm', 90, 'physical', '<span class=\"animated zoomin\">A throng of Bugs swarms the opponent.</span>', 'none', 10, 500),
 (17, 'Drag-On', 120, 'physical', '<span class=\"animated flash\">Fatal Error goes all out(code with outrage).</span>', 'none', 5, 100),
-(18, 'BugSplat', 100, 'physical', '<span class=\"bounceInDown\">Fatal error Drops on the Opponent with full force.</span>', 'none', 15, 75),
-(19, 'ItsAFeature', 5000, 'special', '<span class=\"jackInTheBox\">No mistakes were made!</span>', 'none', 5, 30),
-(20, 'Megattackle', 70, 'physical', '<span class=\"rollIn\">The Epicodemon rushed the opponent with full force.</span>', 'none', 20, 100),
-(22, 'Swamp Gas', 50, 'special', '<span class=\"jello\">What\'s that smell?</span>', 'none', 20, 100),
-(23, 'Furment', 100, 'special', '<span class=\"jello\">What\'s that smell?</span>', 'none', 10, 95),
-(24, 'Call Ogre', 150, 'physical', '<span class=\"jello\">What\'s that smell?</span>', 'none', 5, 45);
+(18, 'Bug Splat', 100, 'physical', '<span class=\"animated bounceInDown\">Fatal error Drops on the Opponent with full force.</span>', 'none', 15, 75),
+(19, 'Its A Feature', 5000, 'special', '<span class=\"animated jackInTheBox\">No mistakes were made!</span>', 'none', 5, 30),
+(20, 'Megattackle', 70, 'physical', '<span class=\"animated rollIn\">The Epicodemon rushed the opponent with full force.</span>', 'none', 20, 100),
+(22, 'Swamp Gas', 50, 'special', '<span class=\"animated jello\">What\'s that smell?</span>', 'none', 20, 100),
+(23, 'Furment', 100, 'special', '<span class=\"animated jello\">What\'s that smell?</span>', 'none', 10, 95),
+(24, 'Call Ogre', 150, 'physical', '<span class=\"animated jello\">What\'s that smell?</span>', 'none', 5, 45),
+(25, 'Fire Beam', 95, 'special', '<span class=\"animated flash\">Fire engulfs the battlefield!</span>', 'brn 10', 15, 100);
 
 -- --------------------------------------------------------
 
@@ -195,10 +234,54 @@ INSERT INTO `moves_mons` (`id`, `moves_id`, `mons_id`) VALUES
 (1, 2, 2),
 (2, 3, 1),
 (3, 4, 3),
-(4, 7, 1),
-(5, 7, 2),
 (6, 7, 3),
-(7, 10, 2);
+(7, 10, 2),
+(8, 1, 4),
+(9, 20, 4),
+(10, 13, 4),
+(12, 19, 4),
+(13, 15, 5),
+(14, 20, 5),
+(15, 3, 5),
+(16, 25, 5),
+(17, 14, 6),
+(18, 20, 6),
+(19, 12, 6),
+(20, 25, 6),
+(21, 16, 7),
+(22, 17, 7),
+(23, 18, 7),
+(24, 25, 7),
+(25, 3, 8),
+(26, 11, 8),
+(27, 16, 9),
+(28, 18, 9),
+(29, 20, 9),
+(30, 4, 9),
+(31, 5, 3),
+(32, 8, 3),
+(33, 9, 3),
+(34, 20, 2),
+(35, 25, 2),
+(36, 11, 1),
+(37, 20, 1),
+(38, 25, 1),
+(39, 6, 10),
+(40, 25, 10),
+(41, 3, 10),
+(42, 20, 10),
+(43, 25, 11),
+(44, 13, 11),
+(45, 20, 11),
+(46, 4, 11),
+(47, 22, 12),
+(48, 23, 12),
+(49, 24, 12),
+(50, 3, 12),
+(51, 20, 13),
+(52, 13, 13),
+(53, 2, 13),
+(54, 12, 13);
 
 -- --------------------------------------------------------
 
@@ -227,7 +310,20 @@ INSERT INTO `moves_types` (`id`, `moves_id`, `types_id`) VALUES
 (8, 8, 16),
 (9, 9, 16),
 (10, 10, 17),
-(11, 11, 14);
+(11, 11, 14),
+(12, 12, 15),
+(13, 13, 17),
+(14, 14, 19),
+(15, 15, 16),
+(17, 16, 9),
+(18, 17, 6),
+(19, 18, 9),
+(20, 19, 17),
+(21, 20, 20),
+(22, 22, 13),
+(23, 23, 13),
+(24, 24, 3),
+(25, 25, 19);
 
 -- --------------------------------------------------------
 
@@ -348,17 +444,17 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `battle`
 --
 ALTER TABLE `battle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=471;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=300;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=371;
 --
 -- AUTO_INCREMENT for table `mons`
 --
 ALTER TABLE `mons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `mons_battle`
 --
@@ -368,22 +464,22 @@ ALTER TABLE `mons_battle`
 -- AUTO_INCREMENT for table `mons_types`
 --
 ALTER TABLE `mons_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `moves`
 --
 ALTER TABLE `moves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `moves_mons`
 --
 ALTER TABLE `moves_mons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `moves_types`
 --
 ALTER TABLE `moves_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `types`
 --
