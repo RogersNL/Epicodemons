@@ -82,7 +82,7 @@
   width: 300px;
   height: 100px;
   border-width: thin;
-  font-size:50px;
+  font-size:30px;
 }
 
 .attackBar
@@ -135,4 +135,8 @@ height: 100px;
 .player-move1, .player-move3
 {
   font-size: 50px;
+}
+.chooseMon
+{
+  text-align: center;
 }

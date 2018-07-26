@@ -445,6 +445,12 @@ namespace Epicodemon.Models
       int rounded = (int)percent;
       return rounded;
     }
+    public int GetLastHitpointsPercent()
+    {
+      float percent = (float)_lastHitpoints * 100 / (float)_totalHitpoints;
+      int rounded = (int)percent;
+      return rounded;
+    }
     public void Edit(int newMon_Id, string newBattleName, int newLevel, int newTotalHitpoints, int newLastHitpoints, int newHitpoints, int newAttack, int newDefense, int newSpecialattack, int newSpecialdefense, int newSpeed, int newMove1pp, int newMove2pp, int newMove3pp, int newMove4pp, bool newIsPlayer, bool newIsComputer, bool newIsActive)
     {
       MySqlConnection conn = DB.Connection();
@@ -645,6 +651,7 @@ namespace Epicodemon.Models
     }
     public static void ComputerChoice(int MonId)
     {
+
       if(MonId == 1)
       {
         Mon mon2 = Mon.Find(2);
@@ -668,6 +675,18 @@ namespace Epicodemon.Models
         computer.Save();
         computer.SetComputerMon();
         computer.SetActiveMon();
+      }
+      else if(MonId > 3)
+      {
+        List<Mon> allMons = Mon.GetAllMons();
+        Random rand = new Random();
+        Mon chosenMon = Mon.Find(rand.Next(allMons.Count));
+        Console.WriteLine(chosenMon.GetMonName());
+        Battle computer = chosenMon.GetAllTrueStats();
+        computer.Save();
+        computer.SetComputerMon();
+        computer.SetActiveMon();
+
       }
     }
     public static int BaseDamage(int attackerId, Move usedMove)
@@ -776,8 +795,9 @@ namespace Epicodemon.Models
     }
     public static int Damage(Move usedMove, Battle attacker, Mon attackerMon, Mon defenderMon)
     {
-      double damage = (double)Battle.BaseDamage(attacker.GetBattleId(), usedMove) * (double)Battle.CritMultiplier() * (double)MonType.TypeMultiplier(defenderMon, usedMove) * (double)MonType.STABMultiplier(attackerMon, usedMove) * (double)usedMove.AccuracyMultiplier();
+      double damage = (double)Battle.BaseDamage(attacker.GetBattleId(), usedMove) * (double)Battle.CritMultiplier() * (double)MonType.STABMultiplier(attackerMon, usedMove) * (double)usedMove.AccuracyMultiplier();
       return (int)damage;
+      // (double)MonType.TypeMultiplier(defenderMon, usedMove)
     }
     public static void PlayerSequence1(int id)
     {
@@ -786,7 +806,8 @@ namespace Epicodemon.Models
       Mon playerMon = Mon.Find(player.GetMon_Id());
       Mon computerMon = Mon.Find(computer.GetMon_Id());
       Move playerMove = Move.Find(id);
-
+      Message newMessage = new Message(playerMove.GetDescription());
+      newMessage.Save();
       double newHP = (double)computer.GetHitpoints() - (double)Battle.Damage(playerMove, player, playerMon, computerMon);
       int roundHP = (int)newHP;
       if(roundHP > 0)
@@ -805,7 +826,8 @@ namespace Epicodemon.Models
       Mon playerMon = Mon.Find(player.GetMon_Id());
       Mon computerMon = Mon.Find(computer.GetMon_Id());
       Move playerMove = Move.Find(id);
-
+      Message newMessage = new Message(computerMove.GetDescription());
+      newMessage.Save();
       double otherHP = (double)player.GetHitpoints() - (double)Battle.Damage(computerMove, computer, computerMon, playerMon);
       int roundOtherHP = (int)otherHP;
 
@@ -825,7 +847,8 @@ namespace Epicodemon.Models
       Mon playerMon = Mon.Find(player.GetMon_Id());
       Mon computerMon = Mon.Find(computer.GetMon_Id());
       Move playerMove = Move.Find(id);
-
+      Message newMessage = new Message(playerMove.GetDescription());
+      newMessage.Save();
       double newHP = (double)computer.GetHitpoints() - (double)Battle.Damage(playerMove, player, playerMon, computerMon);
       int roundHP = (int)newHP;
       if(roundHP > 0)
@@ -844,7 +867,8 @@ namespace Epicodemon.Models
       Mon playerMon = Mon.Find(player.GetMon_Id());
       Mon computerMon = Mon.Find(computer.GetMon_Id());
       Move playerMove = Move.Find(id);
-
+      Message newMessage = new Message(computerMove.GetDescription());
+      newMessage.Save();
       double otherHP = (double)player.GetHitpoints() - (double)Battle.Damage(computerMove, computer, computerMon, playerMon);
       int roundOtherHP = (int)otherHP;
 
@@ -936,6 +960,25 @@ namespace Epicodemon.Models
       else
       {
         return 1;
+      }
+    }
+    public void SetLastHitpoints()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE battle SET lasthitpoints = @newHp WHERE id = @searchId;";
+
+      cmd.Parameters.Add(new MySqlParameter("@searchId", _battleId));
+      cmd.Parameters.Add(new MySqlParameter("@newHp", _hitpoints));
+
+      cmd.ExecuteNonQuery();
+      _lastHitpoints = _hitpoints;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
       }
     }
   }

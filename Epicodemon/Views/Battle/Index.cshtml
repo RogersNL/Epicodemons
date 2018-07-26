@@ -1,19 +1,32 @@
-<h1>Choose Your Epicodemon</h1>
+@using Epicodemon.Models
 
-<form action="/Battle/@Model["monone"].GetMonId()/Battle" method="post">
-  <h4>@Model["monone"].GetMonName()</h4>
-  <p>Descirption: </p>
-  <button type="submit">Fight!</button>
-</form>
 
-<form action="/Battle/@Model["montwo"].GetMonId()/Battle" method="post">
-  <h4>@Model["montwo"].GetMonName()</h4>
-  <p>Descirption: </p>
-  <button type="submit">Fight!</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
 
-<form action="/Battle/@Model["monthree"].GetMonId()/Battle" method="post">
-  <h4>@Model["monthree"].GetMonName()</h4>
-  <p>Descirption: </p>
-  <button type="submit">Fight!</button>
-</form>
+  <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="~/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="~/css/animate.css" rel="stylesheet" type="text/css">
+
+  <script src="~/js/jquery-3.3.1.js"></script>
+  <script src="~/js/scripts.js"></script>
+
+  <title>Epicodemon</title>
+
+</head>
+<body>
+  <div class="container">
+    <h1>Choose Your Epicodemon!</h1>
+    @foreach(var mon in Model["allMons"])
+    {
+      <form action="/Battle/@mon.GetMonId()/Battle" method="post">
+        <h4>@mon.GetMonName()</h4>
+        <img src="~/img/@mon.GetMonName()Pic.png" alt="" width="300px">
+        <button type="submit" class="btn btn-primary">Fight!</button>
+      </form>
+    }
+  </div>
+</body>
+</head>

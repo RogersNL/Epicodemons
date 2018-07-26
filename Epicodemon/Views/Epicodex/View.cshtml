@@ -13,10 +13,10 @@
   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
           <div class="navbar-header">
-              <a class="navbar-brand" href="/Epicodex">Epicodex</a>
+              <a class="navbar-brand" href="/">Home</a>
           </div>
           <ul class="nav navbar-nav">
-              <li><a href="/Epicodex">Home</a></li>
+              <li><a href="/Epicodex">Epicodex</a></li>
               <li class="active"><a href="/Epicodex/Mons">Mons</a></li>
               <li><a href="/Epicodex/Moves">Moves</a></li>
           </ul>
@@ -26,9 +26,18 @@
   <div class="container">
     <h1>Epicodex</h1>
     <h4>@Model["mon"].GetMonName()</h4>
-    <p><img class="Epicodex-pic" src="~/img/@Model["mon"].GetMonName()pic.jpg"></p>
+    <p><img class="Epicodex-pic" src="~/img/@Model["mon"].GetMonName()Pic.png"></p>
     <ul>
       <li>Level: @Model["mon"].GetLevel()</li>
+        @if(@Model["types"].Count == 2)
+        {
+          <li>Type: @Model["types"][0].GetMonTypeName()/@Model["types"][1].GetMonTypeName()</li>
+        }
+        else
+        {
+          <li>Type: @Model["types"][0].GetMonTypeName()</li>
+        }
+
       <li>Base HP: @Model["mon"].GetHitpoints()</li>
       <li>Base Attack: @Model["mon"].GetAttack()</li>
       <li>Base Defense: @Model["mon"].GetDefense()</li>

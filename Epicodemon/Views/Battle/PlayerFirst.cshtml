@@ -27,12 +27,13 @@
               <h3>@Model["computer"].GetBattleName()</h3>
               <h3>Level: @Model["computer"].GetLevel()</h3>
               <div class="progress">
-                <div class="progress-bar enemy-bar-initial" role="progressbar" style="width:100%">
+                <div class="progress-bar enemy-bar-initial" role="progressbar" style="width:@Model["computer"].GetLastHitpointsPercent()%">
                 </div>
                 <div class="progress-bar enemy-bar initial-hidden" role="progressbar" style="width:@Model["computer"].GetHitpointsPercent()%">
                 </div>
               </div>
-              <h3>HP: @Model["computer"].GetHitpoints()/@Model["computer"].GetTotalHitpoints()</h3>
+              <h3 class="enemy-bar-initial">HP: @Model["computer"].GetLastHitpoints()/@Model["computer"].GetTotalHitpoints()</h3>
+              <h3 class="enemy-bar initial-hidden">HP: @Model["computer"].GetHitpoints()/@Model["computer"].GetTotalHitpoints()</h3>
             </div>
           </div>
         </td>

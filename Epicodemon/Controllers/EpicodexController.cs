@@ -21,8 +21,10 @@ namespace Epicodemon.Controllers
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
       Mon selectedMon = Mon.Find(id);
+      List<MonType> types = selectedMon.GetMonTypes();
       List<Move> monsmoves = selectedMon.GetMoves();
 
+      model.Add("types", types);
       model.Add("mon", selectedMon);
       model.Add("moves", monsmoves);
 

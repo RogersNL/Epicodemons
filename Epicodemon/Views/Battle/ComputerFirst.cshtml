@@ -53,12 +53,13 @@
               <h3>@Model["player"].GetBattleName()</h3>
               <h3>Level: @Model["player"].GetLevel()</h3>
               <div class="progress">
-                <div class="progress-bar player-bar-initial" role="progressbar" style="width:100%">
+                <div class="progress-bar player-bar-initial" role="progressbar" style="width:@Model["player"].GetLastHitpointsPercent()%">
                 </div>
                 <div class="progress-bar player-bar initial-hidden" role="progressbar" style="width:@Model["player"].GetHitpointsPercent()%">
                 </div>
               </div>
-              <h3>HP: @Model["player"].GetHitpoints()/@Model["player"].GetTotalHitpoints()</h3>
+              <h3 class="player-bar-initial">HP: @Model["player"].GetLastHitpoints()/@Model["player"].GetTotalHitpoints()</h3>
+              <h3 class="player-bar initial-hidden">HP: @Model["player"].GetHitpoints()/@Model["player"].GetTotalHitpoints()</h3>
             </div>
           </div>
         </td>

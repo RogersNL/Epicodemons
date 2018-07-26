@@ -16,16 +16,18 @@ namespace Epicodemon.Controllers
       Mon mon1 = Mon.Find(1);
       Mon mon2 = Mon.Find(2);
       Mon mon3 = Mon.Find(3);
-
+      List<Mon> allMons = Mon.GetAllMons();
       model.Add("monone", mon1);
       model.Add("montwo", mon2);
       model.Add("monthree", mon3);
+      model.Add("allMons", allMons);
 
       return View(model);
     }
     [HttpPost("/Battle/{id}/Battle")]
     public ActionResult DoBattle(int id)
     {
+      Battle.DeleteAll();
       Mon playerMon = Mon.Find(id);
       Battle newPlayer = playerMon.GetAllTrueStats();
       newPlayer.Save();
@@ -106,10 +108,12 @@ namespace Epicodemon.Controllers
     public ActionResult PlayerFirst(int id)
     {
       Message.DeleteAll();
+      Battle computer = Battle.FindComputer();
+      computer.SetLastHitpoints();
       Battle.PlayerSequence1(id);
       Dictionary<string, object> model = new Dictionary<string, object>();
       Battle player = Battle.FindPlayer();
-      Battle computer = Battle.FindComputer();
+      computer = Battle.FindComputer();
       List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
       Message newMessage = new Message("<a href='/Battle/Combat/Computer2/" + id + "'>Continue</a>");
       newMessage.Save();
@@ -133,50 +137,57 @@ namespace Epicodemon.Controllers
       List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
       Random move = new Random();
       Move computerMove = computerMoves[move.Next(computerMoves.Count)];
+      player.SetLastHitpoints();
       Message.DeleteAll();
+
+      Battle.ComputerSequence1(id, computerMove);
+      player = Battle.FindPlayer();
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Message newMessage = new Message("<a href='/Battle/Combat/Player2/" + id + "'>Continue</a>");
+      newMessage.Save();
+      List<Message> turnMessages = Message.GetAllMessages();
+
+
+      model.Add("player", player);
+      model.Add("computer", computer);
+      model.Add("turnMessages", turnMessages);
+      model.Add("computerMove", computerMove);
+      return View(model);
+
+    }
+    [HttpGet("/Battle/Combat/Player2/{id}")]
+    public ActionResult PlayerSecond(int id)
+    {
+      Battle player = Battle.FindPlayer();
       if(player.GetHitpoints() == 0)
       {
         return RedirectToAction("Lose");
       }
       else
       {
-        Battle.ComputerSequence1(id, computerMove);
-        player = Battle.FindPlayer();
+
+        Message.DeleteAll();
+        Battle computer = Battle.FindComputer();
+        computer.SetLastHitpoints();
+        Battle.PlayerSequence2(id);
         Dictionary<string, object> model = new Dictionary<string, object>();
-        Message newMessage = new Message("<a href='/Battle/Combat/Player2/" + id + "'>Continue</a>");
+        player = Battle.FindPlayer();
+        computer = Battle.FindComputer();
+        List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
+        Message newMessage = new Message("<a href='/Battle/Combat/'>Continue</a>");
         newMessage.Save();
         List<Message> turnMessages = Message.GetAllMessages();
 
+        Move usedMove = Move.Find(id);
 
         model.Add("player", player);
         model.Add("computer", computer);
+        model.Add("playerMoves", playerMoves);
         model.Add("turnMessages", turnMessages);
-        model.Add("computerMove", computerMove);
+        model.Add("usedMove", usedMove);
+
         return View(model);
       }
-    }
-    [HttpGet("/Battle/Combat/Player2/{id}")]
-    public ActionResult PlayerSecond(int id)
-    {
-      Message.DeleteAll();
-      Battle.PlayerSequence2(id);
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Battle player = Battle.FindPlayer();
-      Battle computer = Battle.FindComputer();
-      List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
-      Message newMessage = new Message("<a href='/Battle/Combat/'>Continue</a>");
-      newMessage.Save();
-      List<Message> turnMessages = Message.GetAllMessages();
-
-      Move usedMove = Move.Find(id);
-
-      model.Add("player", player);
-      model.Add("computer", computer);
-      model.Add("playerMoves", playerMoves);
-      model.Add("turnMessages", turnMessages);
-      model.Add("usedMove", usedMove);
-
-      return View(model);
     }
 
     [HttpGet("/Battle/Combat/Computer2/{id}")]
@@ -188,6 +199,7 @@ namespace Epicodemon.Controllers
       List<Move> computerMoves = Mon.Find(computer.GetMon_Id()).GetMoves();
       Random move = new Random();
       Move computerMove = computerMoves[move.Next(computerMoves.Count)];
+      player.SetLastHitpoints();
       Message.DeleteAll();
       if(player.GetHitpoints() == 0)
       {

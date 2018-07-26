@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 26, 2018 at 08:16 AM
--- Server version: 5.6.34-log
--- PHP Version: 7.2.1
+-- Generation Time: Jul 26, 2018 at 09:23 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -56,8 +54,8 @@ CREATE TABLE `battle` (
 --
 
 INSERT INTO `battle` (`id`, `mon_id`, `name`, `level`, `totalhitpoints`, `hitpoints`, `attack`, `defense`, `specialattack`, `specialdefense`, `speed`, `move1pp`, `move2pp`, `move3pp`, `move4pp`, `isplayer`, `iscomputer`, `isactive`) VALUES
-(467, 1, 'Quombat', 5, 20, 15, 11, 10, 13, 12, 13, 0, 0, 0, 0, 1, 0, 1),
-(468, 2, 'Hambirder', 5, 21, 0, 12, 10, 13, 11, 11, 0, 0, 0, 0, 0, 1, 1);
+(469, 3, 'Seasharp', 5, 21, 21, 13, 11, 11, 11, 10, 0, 0, 0, 0, 1, 0, 1),
+(470, 1, 'Quombat', 5, 20, 20, 11, 10, 13, 12, 13, 0, 0, 0, 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -153,17 +151,29 @@ CREATE TABLE `moves` (
 --
 
 INSERT INTO `moves` (`id`, `name`, `basepower`, `attackstyle`, `description`, `secondaryeffect`, `powerpoints`, `accuracy`) VALUES
-(1, 'Static Void', 210, 'special', 'OP', 'par 50', 5, 100),
-(2, 'Attackle', 35, 'physical', 'none', 'none', 95, 100),
-(3, 'scrape', 35, 'physical', 'none', 'none', 35, 100),
-(4, 'poke', 35, 'physical', 'none', 'none', 35, 95),
-(5, 'Hyper Splash', 0, 'special', 'better than splash', 'rcg', 5, 100),
-(6, 'Shred', 80, 'special', 'has chance to make the opponent flinch', 'flc 30', 20, 95),
-(7, 'Act', 40, 'physical', 'There is no escape from the madness that is coding', 'par 70', 10, 100),
-(8, 'Arrange', 0, 'boost', 'boosts stats ', 'bst att spd', 20, 100),
-(9, 'Assert', 100, 'physical', 'assert yo self!', 'none', 10, 80),
-(10, 'Test Patty', 120, 'physical', 'attack at reckless un controllable speed', 'none', 15, 50),
-(11, 'Cadence', 35, 'physical', 'moves in a calculated, repetitive way', 'bst def', 10, 100);
+(1, 'Static Void', 210, 'special', '<span class=\"pulse\">NOTHING escapes the Static Void.</span>', 'par 50', 5, 100),
+(2, 'Attackle', 35, 'physical', '<span class=\"animated flash\">The Epicodemon rushed the opponent.</span>', 'none', 35, 100),
+(3, 'Scrape', 35, 'physical', '<span class=\"swing\">The Epicodemon attacked with its claws.</span>', 'none', 35, 100),
+(4, 'Poke', 35, 'physical', '<span class=\"swing\">The Epicodemon poked opponent.</span>', 'none', 35, 95),
+(5, 'Hyper Splash', 0, 'special', '<span class=\"animated flash\">Its better then Splash!!!!</span>', 'rcg', 5, 0),
+(6, 'Shred', 80, 'special', '<span class=\"animated flash\">Rockasaurus played a sick power riff!</span>', 'flc 30', 20, 95),
+(7, 'Act', 40, 'physical', '<span class=\"animated flash\">Seasharp acted on its opponents openings.</span>', 'par 70', 10, 100),
+(8, 'Arrange', 0, 'boost', '<span class=\"animated flash\">Seasharp prepared itself.</span>', 'bst att spd', 20, 100),
+(9, 'Assert', 100, 'physical', '<span class=\"wobble\">Seasharp asserted its dominance!!! </span>', 'none', 10, 80),
+(10, 'Test Patty', 120, 'physical', '<span class=\"animated flash\">Hambirder all out charged its opponent.</span>', 'none', 15, 50),
+(11, 'Cadence', 35, 'physical', '<span class=\"animated flash\">Quambat moved rhythmically boosting defense.</span>', 'bst def', 10, 100),
+(12, 'IceThrower', 95, 'special', '<span class=\"wobble\">A flamethrower of ice shot at the opponent.</span>', 'none', 15, 100),
+(13, 'ThunderBeam', 95, 'special', '<span class=\"wobble\">A beam of pure lightning fired at the opponent.</span>', 'none', 15, 100),
+(14, 'Heat Release', 120, 'special', '<span class=\"animated flash\">Heatmink Dispelled its stored Heat.</span>', 'none', 5, 90),
+(15, 'MergeError', 135, 'special', '<span class=\"flipinX\">A FATAL mistake was made!!!!</span>', 'none', 10, 85),
+(16, 'BugSwarm', 90, 'physical', '<span class=\"zoomin\">A throng of Bugs swarms the opponent.</span>', 'none', 10, 500),
+(17, 'Drag-On', 120, 'physical', '<span class=\"animated flash\">Fatal Error goes all out(code with outrage).</span>', 'none', 5, 100),
+(18, 'BugSplat', 100, 'physical', '<span class=\"bounceInDown\">Fatal error Drops on the Opponent with full force.</span>', 'none', 15, 75),
+(19, 'ItsAFeature', 5000, 'special', '<span class=\"jackInTheBox\">No mistakes were made!</span>', 'none', 5, 30),
+(20, 'Megattackle', 70, 'physical', '<span class=\"rollIn\">The Epicodemon rushed the opponent with full force.</span>', 'none', 20, 100),
+(22, 'Swamp Gas', 50, 'special', '<span class=\"jello\">What\'s that smell?</span>', 'none', 20, 100),
+(23, 'Furment', 100, 'special', '<span class=\"jello\">What\'s that smell?</span>', 'none', 10, 95),
+(24, 'Call Ogre', 150, 'physical', '<span class=\"jello\">What\'s that smell?</span>', 'none', 5, 45);
 
 -- --------------------------------------------------------
 
@@ -338,7 +348,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `battle`
 --
 ALTER TABLE `battle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=469;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=471;
 --
 -- AUTO_INCREMENT for table `messages`
 --
@@ -363,7 +373,7 @@ ALTER TABLE `mons_types`
 -- AUTO_INCREMENT for table `moves`
 --
 ALTER TABLE `moves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `moves_mons`
 --
@@ -378,8 +388,7 @@ ALTER TABLE `moves_types`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;COMMIT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

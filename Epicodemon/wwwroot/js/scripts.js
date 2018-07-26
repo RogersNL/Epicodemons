@@ -4,6 +4,7 @@ $(document).ready(function(){
     $(".menu").hide();
     $(".attackBar").toggle();
   });
+
   var newWidth = $(".new-width").val();
   $(".player-move1").on('click',function(){
     $(".enemySprite").addClass('animated shake').one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
