@@ -63,7 +63,7 @@
     <div class="menu">
       <div class="well">
         <form id="fightSubmit">
-          <button type="click" class="menuButton">Fight</button>
+          <button type="click" class="menuButton btn btn-primary">Fight</button>
           <!-- <button type="button" class="menuButton">Switch</button> -->
         </form>
 
@@ -74,7 +74,7 @@
         @foreach(var move in Model["playerMoves"])
         {
           <form class="attack col-md-6" action="/Battle/Combat/@move.GetMoveId()" method="post">
-            <button type="submit" class="attack">@move.GetMoveName()</button>
+            <button type="submit" class="attack btn menuAttack">@move.GetMoveName()</button>
           </form>
         }
       </div>

@@ -53,7 +53,7 @@
               <h3>@Model["player"].GetBattleName()</h3>
               <h3>Level: @Model["player"].GetLevel()</h3>
               <div class="progress">
-                <div class="progress-bar player-bar-initial" role="progressbar" style="width:100%">
+                <div class="progress-bar player-bar-initial" role="progressbar" style="width:@Model["player"].GetLastHitpointsPercent()%">
                 </div>
                 <div class="progress-bar player-bar initial-hidden" role="progressbar" style="width:@Model["player"].GetHitpointsPercent()%">
                 </div>
@@ -67,10 +67,10 @@
     </table>
     <div class="menu">
       <div class="well">
-        <span class="player-move3 animated bounceIn">@Model["computer"].GetBattleName() used @Model["computerMove"].GetMoveName()</span>
+        <div class="player-move3 animated bounceIn battleattack">@Model["computer"].GetBattleName() used @Model["computerMove"].GetMoveName()</div>
         @foreach(var message in Model["turnMessages"])
         {
-          <span class="initial-hidden computer-second">@Html.Raw(@message.GetMessageName())</span>
+          <span class="initial-hidden computer-second battletext">@Html.Raw(@message.GetMessageName())</span>
         }
 
       </div>

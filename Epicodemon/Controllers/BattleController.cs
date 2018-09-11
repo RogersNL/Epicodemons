@@ -115,7 +115,7 @@ namespace Epicodemon.Controllers
       Battle player = Battle.FindPlayer();
       computer = Battle.FindComputer();
       List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
-      Message newMessage = new Message("<a href='/Battle/Combat/Computer2/" + id + "'>Continue</a>");
+      Message newMessage = new Message("<a class='continuebutton' href='/Battle/Combat/Computer2/" + id + "'><button class='btn btn-primary'>Continue</button></a>");
       newMessage.Save();
       List<Message> turnMessages = Message.GetAllMessages();
 
@@ -143,7 +143,7 @@ namespace Epicodemon.Controllers
       Battle.ComputerSequence1(id, computerMove);
       player = Battle.FindPlayer();
       Dictionary<string, object> model = new Dictionary<string, object>();
-      Message newMessage = new Message("<a href='/Battle/Combat/Player2/" + id + "'>Continue</a>");
+      Message newMessage = new Message("<a class='continuebutton' href='/Battle/Combat/Player2/" + id + "'><button class='btn btn-primary'>Continue</button></a>");
       newMessage.Save();
       List<Message> turnMessages = Message.GetAllMessages();
 
@@ -174,7 +174,7 @@ namespace Epicodemon.Controllers
         player = Battle.FindPlayer();
         computer = Battle.FindComputer();
         List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
-        Message newMessage = new Message("<a href='/Battle/Combat/'>Continue</a>");
+        Message newMessage = new Message("<a class='continuebutton' href='/Battle/Combat/'><button class='btn btn-primary'>Continue</button></a>");
         newMessage.Save();
         List<Message> turnMessages = Message.GetAllMessages();
 
@@ -201,9 +201,9 @@ namespace Epicodemon.Controllers
       Move computerMove = computerMoves[move.Next(computerMoves.Count)];
       player.SetLastHitpoints();
       Message.DeleteAll();
-      if(player.GetHitpoints() == 0)
+      if(computer.GetHitpoints() == 0)
       {
-        return RedirectToAction("Lose");
+        return RedirectToAction("Win");
       }
       else
       {
@@ -211,7 +211,7 @@ namespace Epicodemon.Controllers
         player = Battle.FindPlayer();
         Dictionary<string, object> model = new Dictionary<string, object>();
         List<Move> playerMoves = Mon.Find(player.GetMon_Id()).GetMoves();
-        Message newMessage = new Message("<a href='/Battle/Combat'>Continue</a>");
+        Message newMessage = new Message("<a class='continuebutton' href='/Battle/Combat'><button class='btn btn-primary'>Continue</button></a>");
         newMessage.Save();
         List<Message> turnMessages = Message.GetAllMessages();
 

@@ -66,10 +66,10 @@
     </table>
     <div class="menu">
       <div class="well">
-        <span class="player-move1 animated bounceIn">@Model["player"].GetBattleName() used @Model["usedMove"].GetMoveName()</span>
+        <div class="player-move1 animated bounceIn battleattack">@Model["player"].GetBattleName() used @Model["usedMove"].GetMoveName()</div>
         @foreach(var message in Model["turnMessages"])
         {
-          <span class="initial-hidden player-first">@Html.Raw(@message.GetMessageName())</span>
+          <span class="initial-hidden player-first battletext">@Html.Raw(@message.GetMessageName())</span>
         }
 
       </div>

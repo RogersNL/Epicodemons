@@ -18,15 +18,19 @@
 </head>
 <body class="homeindex">
   <div class="container">
-    <h1>Choose Your Epicodemon!</h1>
-    @foreach(var mon in Model["allMons"])
-    {
-      <form action="/Battle/@mon.GetMonId()/Battle" method="post">
-        <h4>@mon.GetMonName()</h4>
-        <img src="~/img/@mon.GetMonName()Pic.png" alt="" width="300px">
-        <button type="submit" class="btn btn-primary">Fight!</button>
-      </form>
-    }
+    <h1 class="indexLabel">Choose Your Epicodemon!</h1>
+    <div class="monList">
+      @foreach(var mon in Model["allMons"])
+      {
+        <form class="choiceSection" action="/Battle/@mon.GetMonId()/Battle" method="post">
+          <h4 class="nameScreen">@mon.GetMonName()</h4>
+          <img src="~/img/@mon.GetMonName()Pic.png" alt="" width="300px">
+          <div class="playbtn">
+            <button type="submit" class="playbtn btn btn-primary">Fight!</button>
+          </div>
+        </form>
+      }
+    </div>
   </div>
 </body>
 </head>

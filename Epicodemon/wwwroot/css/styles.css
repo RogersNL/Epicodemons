@@ -23,7 +23,7 @@
 {
   background-image: url("../img/screenv2.jpg");
   background-repeat: repeat-y;
-  background-size: auto;
+  background-size: cover;
   background-position: top;
   color: lightblue;
 }
@@ -41,14 +41,14 @@
 }
 #homechu
 {
-  margin-top:300px;
+  margin-top:200px;
   height: 300px;
 }
-/* .well
-{
-  width: 250px;
-  background-color: darkgreen;
-} */
+.codexhome {
+  margin-top: 240px;
+  font-size: 100px;
+  text-align: center;
+}
 .form-control
 {
   width: 300px;
@@ -133,6 +133,7 @@ height: 100px;
 {
   font-size:50px;
 }
+
 .player-move1, .player-move3
 {
   font-size: 50px;
@@ -157,4 +158,55 @@ height: 100px;
 a
 {
   color:black;
+}
+.monList {
+  overflow-y: scroll;
+  max-height: 1000px;
+}
+.playbtn {
+  font-size: 60px;
+  display: inline-flex;
+  margin-left: 70px;
+}
+.nameScreen {
+  font-size: 40px;
+}
+.indexLabel {
+  font-size: 70px;
+}
+.choiceSection {
+  margin-bottom: 50px;
+}
+.menuAttack {
+  padding:10px;
+  border: 1px solid black;
+}
+.battletext span:hover {
+  border: 2px solid #e22c2e;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.battletext span {
+  display:block;
+  margin-top: 50px;
+}
+.continuebutton:hover {
+  color:black;
+  text-decoration: none;
+}
+.continuebutton button {
+  width: 300px;
+  height: 150px;
+  font-size: 50px;
+}
+.battleattack:hover {
+  border: 2px solid #e22c2e;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.battleattack {
+  margin-top: 50px;
+}
+.menu div.well {
+  min-height: 200px;
 }
