@@ -23,18 +23,15 @@
       </div>
   </nav>
 
-  <div class="container">
-    <h1>Epicodex</h1>
+  <div class="container movesContainer">
     <h2>Moves</h2>
     @foreach(var move in Model)
     {
-      <div class="well">
+      <div class="movewell">
         <h4>@move.GetMoveName()</h4>
         <p>Attack Style: @move.GetAttackStyle()</p>
         <p>Base Power: @move.GetBasePower()</p>
         <p>Accuracy: @move.GetAccuracy()</p>
-        <p>Power Points: @move.GetPowerPoints()</p>
-        <p>Secondary Effect: @move.GetSecondaryEffect()</p>
       </div>
     }
 </body>

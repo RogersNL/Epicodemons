@@ -23,10 +23,9 @@
       </div>
   </nav>
 
-  <div class="container">
-    <h1>Epicodex</h1>
+  <div class="container mon-detail">
     <h4>@Model["mon"].GetMonName()</h4>
-    <p><img class="Epicodex-pic" src="~/img/@Model["mon"].GetMonName()Pic.png"></p>
+    <p><img class="Epicodex-pic-detail" src="~/img/@Model["mon"].GetMonName()Pic.png"></p>
     <ul>
       <li>Level: @Model["mon"].GetLevel()</li>
         @if(@Model["types"].Count == 2)

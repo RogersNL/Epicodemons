@@ -680,8 +680,7 @@ namespace Epicodemon.Models
       {
         List<Mon> allMons = Mon.GetAllMons();
         Random rand = new Random();
-        Mon chosenMon = Mon.Find(rand.Next(allMons.Count));
-        Console.WriteLine(chosenMon.GetMonName());
+        Mon chosenMon = Mon.Find(rand.Next(1, allMons.Count));
         Battle computer = chosenMon.GetAllTrueStats();
         computer.Save();
         computer.SetComputerMon();

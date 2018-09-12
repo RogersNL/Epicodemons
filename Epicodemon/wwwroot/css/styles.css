@@ -111,7 +111,7 @@
 
 .Epicodex-pic
 {
-height: 100px;
+height: 300px;
 }
 
 .initial-hidden
@@ -209,4 +209,50 @@ a
 }
 .menu div.well {
   min-height: 200px;
+}
+.monsContainer {
+  margin-top: 240px;
+  overflow-y: scroll;
+  max-height: 1000px;
+}
+.monInfo {
+  float:right;
+  display:inline-block;
+  font-size: 80px;
+  margin-top: 30px;
+}
+.Epicodex-pic-detail {
+  float:right;
+  height:500px;
+}
+.mon-detail {
+  margin-top: 270px;
+}
+.mon-detail h4 {
+  font-size: 60px;
+}
+.mon-detail li {
+  font-size: 30px;
+  list-style-type: none;
+}
+.mon-detail a {
+  font-size: 50px;
+}
+.movesContainer h2 {
+  text-align: center;
+  font-size: 80px;
+}
+.movesContainer {
+  margin-top: 240px;
+  overflow-y: scroll;
+  max-height: 1000px;
+}
+.movewell {
+  margin-bottom: 40px;
+}
+.movewell h4 {
+  font-size: 50px;
+}
+.movewell p {
+  font-size: 25px;
 }

@@ -253,16 +253,17 @@ namespace Epicodemon.Models
     public int GetTrueHP()
     {
       Random iv = new Random();
-      // float (((2 * (float)_hitpoints + (float)iv.Next(32)) * (float)_level) / 100) + (float)_level + 10;
-      float trueNumber = (((2 * (float)_hitpoints + 31) * (float)_level) / 100) + (float)_level + 10;
+      float trueNumber = (((2 * (float)_hitpoints + (float)iv.Next(32)) * (float)_level) / 100) + (float)_level + 10;
+      //Uncomment to pass tests
+      // float trueNumber = (((2 * (float)_hitpoints + 31) * (float)_level) / 100) + (float)_level + 10;
       int rounded = (int)trueNumber;
       return rounded;
     }
     public int GetTrueStat(int stat)
     {
       Random iv = new Random();
-      // return (((2 * (float)stat + (float)iv.Next(32)) * (float)_level) / 100) + 5;
-      float trueNumber = (((2 * (float)stat + 31) * (float)_level) / 100) + 5;
+      float trueNumber = (((2 * (float)stat + (float)iv.Next(32)) * (float)_level) / 100) + 5;
+      // float trueNumber = (((2 * (float)stat + 31) * (float)_level) / 100) + 5;
       int rounded = (int)trueNumber;
       return rounded;
 
